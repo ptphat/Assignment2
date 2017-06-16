@@ -1,11 +1,9 @@
 ﻿#pragma once
-
+#include<iostream>
 #include<string>
+#include<Windows.h>
 #include<iomanip>
 #include<fstream>
-#include<Windows.h>
-#include<iostream>
-
 using namespace std;
 
 class account {

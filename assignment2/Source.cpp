@@ -9,8 +9,6 @@
 #include<Windows.h>
 using namespace std;
 
-
-//================ MAIN ===================
 void main() {
 	menu mn0;
 	mn0.welcome();

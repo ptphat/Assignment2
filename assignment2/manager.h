@@ -1,12 +1,12 @@
 #pragma once
-#include"account.h"
-#include"file.h"
 #include"reader.h"
-class manager : public reader
-{
+#include"account.h"
+
+class manager : public reader{
 public:
-
-
+	void sign_in();
+	void user_menu();
+	void edit_profile();
 public:
 	manager();
 	~manager();

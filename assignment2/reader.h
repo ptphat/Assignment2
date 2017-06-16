@@ -1,7 +1,5 @@
 #pragma once
 #include"account.h"
-#include"file.h"
-#include"menu.h"
 
 using namespace std;
 class reader : public account {
@@ -13,9 +11,9 @@ public:
 	string birth_signed_in;
 	string phone_signed_in;
 public:
-	void sign_in();
-	void reader_menu();
-	void edit_profile();
+	virtual void sign_in();
+	virtual void user_menu();
+	virtual void edit_profile();
 	void muonsach();
 	void notification();
 };

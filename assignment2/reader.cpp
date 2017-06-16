@@ -1,9 +1,9 @@
+#pragma once
 #include "reader.h"
+#include "menu.h"
 #include"account.h"
 #include"file.h"
-#include"menu.h"
-#include"reader.h"
-void reader::reader_menu() {
+void reader::user_menu() {
 	system("cls");
 	cout << "------------------------LIBRO (USER)------------------------" << endl;
 	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification" << endl << "0. Log out" << endl;
@@ -28,25 +28,25 @@ void reader::sign_in() {
 	m.loading();
 	system("cls");
 	cin.ignore();
-	cout << "-------------------------SIGN IN-------------------------" << endl;
+	cout << "----------------------SIGN IN (as reader)----------------------" << endl;
 	int size = 0;
 	string username, pass, st;
-	fstream user_read("reader_data.txt", ios::in | ios::out);
-	while (getline(user_read, st)) { size++; }
+	fstream reader_read("reader_data.txt", ios::in | ios::out);
+	while (getline(reader_read, st)) { size++; }
 	cout << "Number of account: " << size << endl;
 	account *arrayaccount = new account[size];
-	user_read.clear();
-	user_read.seekg(0, 0);
+	reader_read.clear();
+	reader_read.seekg(0, 0);
 	for (int i = 0; i < size; i++) {
-		getline(user_read, st, ';');
+		getline(reader_read, st, ';');
 		arrayaccount[i].set_id(st);
-		getline(user_read, st, ';');
+		getline(reader_read, st, ';');
 		arrayaccount[i].set_username(st);
-		getline(user_read, st, ';');
+		getline(reader_read, st, ';');
 		arrayaccount[i].set_password(st);
-		getline(user_read, st);
+		getline(reader_read, st);
 	}
-	user_read.close();
+	reader_read.close();
 
 	cout << "Enter your username: ";
 	fflush(stdin);
@@ -71,6 +71,7 @@ void reader::sign_in() {
 		else verify = 2; //Chua tim duoc username trong file
 	}
 	if (verify == 2) {
+		cout << "-------------------------------------------------------------------" << endl;
 		cout << "This user doesn't exist" << endl << "1. Try different account" << endl << "2. Back to main menu" << endl;
 		int choice = 0;
 		do {
@@ -103,7 +104,7 @@ void reader::sign_in() {
 		}
 	}
 	else if (verify == 0) {
-		reader_menu();
+		user_menu();
 	}
 }
 void reader::edit_profile() {
@@ -113,7 +114,7 @@ void reader::edit_profile() {
 	size = f.size(read_data);
 	read_data.close();
 	account *a = new account[size];
-	f.read_account(a, size);
+	f.read_reader(a, size);
 	for (int i = 0; i < size; i++) {
 		if (a[i].get_id() == id_signed_in) {
 			position = i;
@@ -129,7 +130,7 @@ void reader::edit_profile() {
 	} while (choice < 0 || choice > 5);
 	switch (choice)
 	{
-	case 0: {reader_menu(); } break;
+	case 0: {user_menu(); } break;
 	case 1: {cout << "Sorry, you can't change your username, press any key to return" << endl;
 		system("pause>nul");
 		edit_profile();
@@ -160,8 +161,8 @@ void reader::edit_profile() {
 			cout << "Success!!!" << endl;
 			system("pause>nul");
 			file w;
-			w.write_account(a, size);
-			reader_menu();
+			w.write_reader(a, size);
+			user_menu();
 		}
 	} break;
 	case 3: {
@@ -181,8 +182,8 @@ void reader::edit_profile() {
 			cout << "Success!!!" << endl;
 			system("pause>nul");
 			file w;
-			w.write_account(a, size);
-			reader_menu();
+			w.write_reader(a, size);
+			user_menu();
 		}
 	}
 			break;
@@ -203,8 +204,8 @@ void reader::edit_profile() {
 			cout << "Success!!!" << endl;
 			system("pause>nul");
 			file w;
-			w.write_account(a, size);
-			reader_menu();
+			w.write_reader(a, size);
+			user_menu();
 		}
 	}
 			break;
@@ -227,8 +228,8 @@ void reader::edit_profile() {
 			cout << "Success!!!" << endl;
 			system("pause>nul");
 			file w;
-			w.write_account(a, size);
-			reader_menu();
+			w.write_reader(a, size);
+			user_menu();
 		}
 	}
 			break;
@@ -237,3 +238,4 @@ void reader::edit_profile() {
 	}
 	delete[] a;
 }
+

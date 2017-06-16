@@ -1,14 +1,15 @@
 #pragma once
 #include"account.h"
-#include"menu.h"
-#include"reader.h"
-using namespace std;
 
 class file
 {
 public:
 	int size(fstream &file);
-	void read_account(account *arrayacc, int size);
-	void write_account(account *arryacc, int size);
+	void read_reader(account *arrayacc, int size);
+	void write_reader(account *arryacc, int size);
+	void read_manager(account *arrayacc, int size);
+	void write_manager(account *arrayacc, int size);
+	void read_admin(account *arrayacc, int size);
+	void write_admin(account *arrayacc, int size);
 };
 

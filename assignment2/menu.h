@@ -1,8 +1,8 @@
 #pragma once
-#include"account.h"
-#include"file.h"
 #include"reader.h"
-
+#include"manager.h"
+#include"account.h"
+#include"admin.h"
 class menu
 {
 
@@ -33,9 +33,9 @@ public:
 		} while (choice < 0 || choice >3);
 		switch (choice)
 		{
-		case 1: {reader r; r.sign_in(); } break;
-		case 2:  break;
-		case 3: //to be continue
+		case 1: {reader *r= new reader; r->sign_in(); } break;
+		case 2: {reader *r = new manager; r->sign_in(); }break;
+		case 3: {reader *r = new admin; r->sign_in(); }
 			break;
 		case 0: mainmenu(); break;
 		default:

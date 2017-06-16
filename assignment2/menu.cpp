@@ -1,7 +1,6 @@
-#include"account.h"
-#include"file.h"
+#pragma once
 #include"menu.h"
-#include"reader.h"
+
 void menu::welcome() {
 	system("cls");
 	cout << endl << endl << endl;
@@ -89,7 +88,7 @@ void menu::signup_menu() {
 
 	string username, pass, name, birthday, email, phone;
 	int verify = 0; // Bien xac thuc cho username
-	fstream user_write("account_data.txt", ios::out | ios::app);
+	fstream user_write("reader_data.txt", ios::out | ios::app);
 	cout << "Enter your username: ";
 	fflush(stdin);
 	getline(cin, username);
@@ -156,13 +155,13 @@ void menu::mainmenu() {
 	loading();
 	system("cls");
 	cout << "-------------- LIBRO (designed by Phat) --------------" << endl;
-	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "5. Exit" << endl;
+	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "0. Exit" << endl;
 	int choice = 0;
 	do {
 		cout << "Enter your choice: ";
 		fflush(stdin);
 		cin >> choice;
-	} while (choice < 1 || choice >5);
+	} while (choice < 0 || choice >4);
 
 	switch (choice)
 	{
@@ -178,7 +177,7 @@ void menu::mainmenu() {
 		system("pause>nul");
 		mainmenu();
 	}
-	case 5: system("exit");
+	case 0: system("exit");
 	default:
 		break;
 	}

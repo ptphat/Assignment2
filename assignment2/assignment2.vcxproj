@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="account.h" />
+    <ClInclude Include="admin.h" />
     <ClInclude Include="book.h" />
     <ClInclude Include="file.h" />
     <ClInclude Include="manager.h" />
@@ -20,12 +21,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="account.cpp" />
+    <ClCompile Include="admin.cpp" />
     <ClCompile Include="book.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="reader.cpp" />
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="admin_data.txt" />
+    <Text Include="manager_data.txt" />
+    <Text Include="reader_data.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{623B8C7F-6E8B-4BE4-96A8-D529374D6708}</ProjectGuid>
