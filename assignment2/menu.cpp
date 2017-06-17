@@ -6,62 +6,62 @@ void menu::welcome() {
 	cout << endl << endl << endl;
 	cout << setw(36) << right << "W" << endl;
 	cout << setw(34) << "__" << endl;
-	Sleep(100);
+	Sleep(80);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(38) << right << "WEL" << endl;
 	cout << setw(38) << "______" << endl;
-	Sleep(100);
+	Sleep(80);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(40) << right << "WELCO" << endl;
 	cout << setw(42) << "__________" << endl;
-	Sleep(100);
+	Sleep(80);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(42) << right << "WELCOME" << endl;
 	cout << setw(45) << "_____________" << endl;
-	Sleep(200);
+	Sleep(150);
 }
 void menu::loading() {
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(43) << right << "LOADING.";
-	Sleep(50);
+	Sleep(30);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(44) << right << "LOADING..";
-	Sleep(50);
+	Sleep(30);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(45) << right << "LOADING...";
-	Sleep(50);
+	Sleep(30);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(46) << right << "LOADING....";
-	Sleep(90);
+	Sleep(60);
 }
 void menu::goodbye() {
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(36) << right << "G" << endl;
 	cout << setw(34) << "__" << endl;
-	Sleep(100);
+	Sleep(60);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(38) << right << "GOO" << endl;
 	cout << setw(38) << "______" << endl;
-	Sleep(100);
+	Sleep(60);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(40) << right << "GOODB" << endl;
 	cout << setw(42) << "__________" << endl;
-	Sleep(100);
+	Sleep(60);
 	system("cls");
 	cout << endl << endl << endl;
 	cout << setw(42) << right << "GOODBYE" << endl;
 	cout << setw(45) << "_____________" << endl;
-	Sleep(200);
+	Sleep(100);
 }
 void menu::signup_menu() {
 	loading();
@@ -153,8 +153,9 @@ void menu::signup_menu() {
 }
 void menu::mainmenu() {
 	loading();
-	system("cls");
+	system("cls"); 
 	cout << "-------------- LIBRO (designed by Phat) --------------" << endl;
+	cout << setw(17) << "" << "https://github.com/ptphat/assignment2" << endl << endl;
 	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "0. Exit" << endl;
 	int choice = 0;
 	do {

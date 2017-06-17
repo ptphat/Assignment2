@@ -50,22 +50,23 @@ void manager::sign_in(){
 		else verify = 2; //Chua tim duoc username trong file
 	}
 	if (verify == 2) {
-		cout << "-------------------------------------------------------------------" << endl;
-		cout << "This user doesn't exist" << endl << "1. Try different account" << endl << "2. Back to main menu" << endl;
+		cout << "-----------------------------------------------------------------" << endl;
+		cout << "This user doesn't exist" << endl << "0. Try different account" << endl << "2. Back to main menu" << endl;
 		int choice = 0;
 		do {
 			cout << "Enter your choice: ";
 			cin >> choice;
-		} while (choice < 1 || choice >2);
+		} while (choice < 0 || choice >1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
-		case 2: m.mainmenu();
+		case 0: m.mainmenu();
 		default:
 			break;
 		}
 	}
 	else if (verify == 1) {
+		cout << "-----------------------------------------------------------------" << endl;
 		cout << "Password is invalid" << endl;
 		cout << "1. Try to sign in again" << endl << "2. Back to main menu" << endl;
 		int choice = 0;
@@ -73,11 +74,11 @@ void manager::sign_in(){
 			cout << "Enter your choice: ";
 			fflush(stdin);
 			cin >> choice;
-		} while (choice < 1 || choice >2);
+		} while (choice < 0 || choice >1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
-		case 2: m.mainmenu();
+		case 0: m.mainmenu();
 		default:
 			break;
 		}
@@ -139,20 +140,20 @@ void manager::edit_profile() {
 				cout << "Current password: ";
 				string pass, newpass;
 				fflush(stdin);
-				cin >> pass;
+				getline(cin, pass);
 				while (pass != a[position].get_password()) {
 					cout << "Invalid password" << endl << "Enter your current password again: ";
 					fflush(stdin);
-					cin >> pass;
+					getline(cin, pass);
 				}
 				cout << "Enter new password: ";
 				fflush(stdin);
-				cin >> newpass;
+				getline(cin, newpass);
 				menu m;
 				while (m.verify_semicolon(newpass) == 1) {
 					cout << "Your password word mustn't content char \';\', retype it: ";
 					fflush(stdin);
-					cin >> newpass;
+					getline(cin, newpass);
 				}
 				if (m.verify_semicolon(newpass) == 0) {
 					a[position].set_password(newpass);
@@ -191,11 +192,11 @@ void manager::edit_profile() {
 				cout << "Your current birthday: " << a[position].get_birthday() << endl;
 				cout << "Enter new birthday: ";
 				string newbirth;
-				cin >> newbirth;
+				getline(cin, newbirth);
 				menu m;
 				while (m.verify_semicolon(newbirth) == 1) {
 					cout << "Your birthday mustn't content char \';\', retype it: ";
-					cin >> newbirth;
+					getline(cin, newbirth);
 				}
 				if (m.verify_semicolon(newbirth) == 0) {
 					a[position].set_birthday(newbirth);
@@ -214,12 +215,12 @@ void manager::edit_profile() {
 				cout << "Enter new birthday: ";
 				string newphone;
 				fflush(stdin);
-				cin >> newphone;
+				getline(cin, newphone);
 				menu m;
 				while (m.verify_semicolon(newphone) == 1) {
 					cout << "Your birthday mustn't content char \';\', retype it: ";
 					fflush(stdin);
-					cin >> newphone;
+					getline(cin, newphone);
 				}
 				if (m.verify_semicolon(newphone) == 0) {
 					a[position].set_phone(newphone);
