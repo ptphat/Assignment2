@@ -158,3 +158,33 @@ void file::write_request(request_manager *arrrq, int size){
 	}
 	file.close();
 }
+void file::read_list_book(book* list, int size)
+{
+	fstream f0("book.txt", ios::in);
+	string s;
+	for (int i = 0; i < size; i++){
+		getline(f0, s, ';');
+		list[i].Set_id(s);
+		getline(f0, s, ';');
+		list[i].Set_title(s);
+		getline(f0, s, ';');
+		list[i].Set_author(s);
+		getline(f0, s, ';');
+		list[i].Set_date(s);
+		int x;
+		f0 >> x;
+		list[i].Set_num_of_book(x);
+		getline(f0, s, ';');
+		getline(f0, s);
+		list[i].Set_describe(s);
+	}
+	f0.close();
+}
+void file::write_list_book(book* list, int size)
+{
+	fstream file("book.txt", ios::trunc | ios::out);
+	for (int i = 0; i < size; i++) {
+		file << list[i].Get_book_id() << ";" << list[i].Get_title() << ";" << list[i].Get_author() << ";" << list[i].Get_date() << ";" << list[i].Get_num_of_book() << ";" << list[i].Get_describe() << ";" << endl;
+	}
+	file.close();
+}

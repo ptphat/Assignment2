@@ -5,7 +5,7 @@
 class manager : public reader{
 public:
 	string usrname;
-	string book;
+	string book_;
 	int quantity;
 public:
 	void sign_in();

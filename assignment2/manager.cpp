@@ -2,6 +2,8 @@
 #include"manager.h"
 #include"menu.h"
 #include"file.h"
+#include"book.h"
+
 void manager::sign_in(){
 	menu m;
 	m.loading();
@@ -103,7 +105,7 @@ void manager::user_menu() {
 	}
 	delete[] rm;
 	cout << "------------------------LIBRO (MANAGER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Add/remove book" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Modify book" << endl << "0. Log out" << endl;
 	int choice;
 	do {
 		cout << "Enter your choice: ";
@@ -114,7 +116,21 @@ void manager::user_menu() {
 	case 0: {menu m; m.mainmenu(); }break;
 	case 1: edit_profile(); break;
 	case 2: notification(); break;
-	case 3: break;
+	case 3: {
+				book b;
+				b.Modify_book();
+				cout << endl << "Do you want to modify again?" << endl << "1. Yes" << endl << "2. No" << endl;
+				int choice;
+				do{
+					cout << "Enter your choice: ";
+					cin >> choice;
+				} while (choice<1 || choice >2);
+				switch (choice){
+				case 1: b.Modify_book(); break;
+				case 2: user_menu(); break;
+				}
+
+	} break;
 	default:
 		break;
 	}

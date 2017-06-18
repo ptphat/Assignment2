@@ -14,18 +14,35 @@ const string currentDateTime() {
 void reader::user_menu() {
 	system("cls");
 	cout << "------------------------LIBRO (USER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification"<<endl<<"4. Search book" << endl << "0. Log out" << endl;
 	int choice;
 	do {
 		cout << "Enter your choice: ";
 		cin >> choice;
-	} while (choice < 0 || choice >3);
+	} while (choice < 0 || choice >4);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
 	case 1: edit_profile(); break;
 	case 2: bookrequest(); break;
 	case 3: notification(); break;
+	case 4: {
+				book b; 
+				b.Display_all_book(); 
+				b.Find_book(); 
+				choice;
+				cout << "Would you like to find again?"<<endl;
+				cout << "1. Yes" << endl;
+				cout << "2. No" << endl;
+				do{
+					cout << "Enter your choice: ";
+					cin >> choice;
+				} while (choice<0 || choice>2);
+				switch (choice){
+				case 1: b.Find_book(); break;
+				case 2: user_menu(); break;
+				}
+	}
 	default:
 		break;
 	}
