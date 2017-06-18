@@ -18,6 +18,7 @@
     <ClInclude Include="manager.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="reader.h" />
+    <ClInclude Include="request_manager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="account.cpp" />
@@ -27,12 +28,19 @@
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="reader.cpp" />
+    <ClCompile Include="request_manager.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="admin_data.txt" />
+    <Text Include="book.txt" />
     <Text Include="manager_data.txt" />
     <Text Include="reader_data.txt" />
+    <Text Include="request.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{623B8C7F-6E8B-4BE4-96A8-D529374D6708}</ProjectGuid>
@@ -75,7 +83,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>

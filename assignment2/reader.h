@@ -1,7 +1,8 @@
 #pragma once
 #include"account.h"
 
-using namespace std;
+
+
 class reader : public account {
 public:
 	string id_signed_in;
@@ -14,6 +15,6 @@ public:
 	virtual void sign_in();
 	virtual void user_menu();
 	virtual void edit_profile();
-	void muonsach();
+	void bookrequest();
 	void notification();
 };

@@ -1,8 +1,16 @@
-#pragma once
-#include "reader.h"
+﻿#pragma once
+#include"reader.h"
 #include "menu.h"
-#include"account.h"
 #include"file.h"
+const string currentDateTime() {
+	time_t     now = time(0);
+	struct tm  tstruct;
+	char       buf[80];
+	tstruct = *localtime(&now);
+	strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
+
+	return buf;
+}
 void reader::user_menu() {
 	system("cls");
 	cout << "------------------------LIBRO (USER)------------------------" << endl;
@@ -16,13 +24,12 @@ void reader::user_menu() {
 	{
 	case 0: {menu m; m.mainmenu(); }break;
 	case 1: edit_profile(); break;
-	case 2: break;
-	case 3: break;
+	case 2: bookrequest(); break;
+	case 3: notification(); break;
 	default:
 		break;
 	}
 }
-
 void reader::sign_in() {
 	menu m;
 	m.loading();
@@ -61,6 +68,7 @@ void reader::sign_in() {
 			if (pass == arrayaccount[i].get_password()) {
 				verify = 0; // Dang nhap thanh cong
 				id_signed_in=arrayaccount[i].get_id();
+				usrname_signed_in = arrayaccount[i].get_username();
 				break;
 			}
 			else {
@@ -238,5 +246,96 @@ void reader::edit_profile() {
 		break;
 	}
 	delete[] a;
+}
+void reader::bookrequest(){
+	system("cls");
+	cout << "-----------------------------------BOOK REQUEST---------------------------------" << endl;
+	cout << "List book: " << endl;
+	file f;
+	fstream u("book.txt", ios::in | ios::out);
+	int size;
+	size = f.size(u);
+	u.close();
+	book *b = new book[size];
+	f.read_book(b, size);
+	cout << setw(30) << "Title" << setw(20) << "Author"<<setw(15)<<"Date" << setw(15) << "Quantity" << endl;
+	for (int i = 0; i < 80; i++) cout << "-";
+	cout << endl;
+	for (int i = 0; i < size; i++){
+		cout << setw(30) << b[i].title << setw(20) << b[i].author << setw(15) << b[i].date << setw(15) << b[i].num << endl;
+	}
+	int position = -1;
+	string title;
+	cout<<endl << "Enter exactly the name of book you want to borrow: ";
+	fflush(stdin);
+	getline(cin, title);
+	for (int i = 0; i < size; i++){
+		if (b[i].title == title){
+			position = i;
+			break;
+		}
+	}
+	if (position == -1){
+		cout << "Sorry that book doesn't exist or you have typed incorrect the name" << endl;
+		cout << "1. Retry" << endl << "0. Exit" << endl;
+		int choice;
+		do {
+			cout << "Enter your choice: ";
+			cin >> choice;
+		} while (choice<0 | choice>1);
+		switch (choice)
+		{
+		case 1: bookrequest(); break;
+		case 0: user_menu(); break;
+		default:
+			break;
+		}
+	}
+	else {
+		int quantity;
+		do{
+			cout << "How many book do you want: ";
+			cin >> quantity;
+		} while (quantity <0 || quantity > b[position].num);
+		time_t rawtime;
+		struct tm * timeinfo;
+		time(&rawtime);
+		timeinfo = localtime(&rawtime);
+		fstream request("request.txt", ios::out | ios::app);
+		request << currentDateTime() << ';' << usrname_signed_in << ';' << b[position].title << ';' << quantity << ';' << "1" << ';' << endl;
+		cout << "Success!!!" << endl;
+		system("pause>nul");
+		// 1 chưa được accept
+		request.close();
+		delete[] b;
+		user_menu();
+	}
+}
+void reader::notification(){
+	system("cls");
+	cout << "---------------------------NOTIFICATION---------------------------" << endl;
+	file f;
+	fstream rdr_data("reader_data.txt", ios::in | ios::out);
+	int size;
+	size = f.size(rdr_data);
+	rdr_data.close();
+	request_manager *arr = new request_manager[size];
+	f.read_request(arr, size);
+	int position = -1;
+	bool exist = false; //Kiem tra su ton tai cua thong bao
+	for (int i = 0; i < size; i++){
+		if (arr[i].usrname == usrname_signed_in){
+			if (arr[i].verify == 0) {
+				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been accepted." << endl; 
+				exist = true;
+			}
+
+		}
+	}
+	if (exist == false){
+		cout << "Empty!!!";
+	}
+	system("pause>nul");
+	user_menu();
 }
 

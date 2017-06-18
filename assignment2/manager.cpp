@@ -1,7 +1,7 @@
-#pragma once
-#include "manager.h"
-#include "menu.h"
-#include "file.h"
+﻿#pragma once
+#include"manager.h"
+#include"menu.h"
+#include"file.h"
 void manager::sign_in(){
 	menu m;
 	m.loading();
@@ -89,8 +89,21 @@ void manager::sign_in(){
 }
 void manager::user_menu() {
 	system("cls");
+	int size;
+	file f;
+	fstream file_request("request.txt", ios::in | ios::out);
+	size = f.size(file_request);
+	request_manager *rm = new request_manager[size];
+	f.read_request(rm, size);
+	int num_of_noti = 0;
+	for (int i = 0; i < size; i++){
+		if (rm[i].verify == 1){
+			num_of_noti++;
+		}
+	}
+	delete[] rm;
 	cout << "------------------------LIBRO (MANAGER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Book request (from reader)" << endl << "3. Add/remove book" << endl << "4. Notification" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Add/remove book" << endl << "0. Log out" << endl;
 	int choice;
 	do {
 		cout << "Enter your choice: ";
@@ -100,7 +113,7 @@ void manager::user_menu() {
 	{
 	case 0: {menu m; m.mainmenu(); }break;
 	case 1: edit_profile(); break;
-	case 2: break;
+	case 2: notification(); break;
 	case 3: break;
 	default:
 		break;
@@ -237,6 +250,62 @@ void manager::edit_profile() {
 	}
 	delete[] a;
 }
+void manager::notification(){
+	system("cls");
+	int size;
+	file f;
+	fstream file_request("request.txt", ios::in | ios::out);
+	size = f.size(file_request);
+	request_manager *rm = new request_manager[size];
+	f.read_request(rm, size);
+	int *p = new int[size];
+	bool exist = false; //Kiểm tra sự tồn tại của các thông báo
+	cout << "----------------------NOTIFICATION---------------------" << endl;
+	int j = 0; // Bien danh so thu tu notification
+	for (int i = 0; i < size; i++){
+		if (rm[i].verify == 1){
+			j++;
+			p[j] = i;
+			cout << j << ". User \"" << rm[i].usrname << "\" want to borrow " << rm[i].quantity << " book(s) named \"" << rm[i].title << "\" on: " << rm[i].date << endl;
+			exist = true;
+		}
+	}
+	if (exist == false) { 
+		delete[] p, rm;
+		cout << "Empty!!!" << endl;
+		system("pause>nul");
+		user_menu();
+	}
+	else{
+		cout << "-------------------------------------------------------------------------" << endl;
+		cout << "1. Accept request" << endl << "0. Back" << endl;
+		int choice;
+		do {
+			cout << "Enter your choice: ";
+			cin >> choice;
+		} while (choice<0 || choice>1);
+		switch (choice){
+		case 0: user_menu(); break;
+		case 1: {
+					int choice;
+					do{
+						cout << "Choose which request you want to accept: ";
+						fflush(stdin);
+						cin >> choice;
+					} while (choice <1 || choice >j);
+					rm[p[choice]].verify = 0; //Yeu cau duoc chap nhan
+					file f;
+					f.write_request(rm, size);
+					delete[] p, rm;
+					cout << "Success!!!" << endl;
+					system("pause>nul");
+					notification();
+		}
+		}
+	}
+
+}
+
 manager::manager()
 {
 }

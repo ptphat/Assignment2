@@ -1,7 +1,6 @@
 #pragma once
-#include"reader.h"
-#include"manager.h"
 #include"account.h"
+#include"manager.h"
 #include"admin.h"
 class menu
 {

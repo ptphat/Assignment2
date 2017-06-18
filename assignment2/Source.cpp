@@ -3,10 +3,13 @@
 #include"file.h"
 #include"menu.h"
 #include"reader.h"
+#include"book.h"
+#include"request_manager.h"
 #include<string>
 #include<iomanip>
 #include<fstream>
 #include<Windows.h>
+#include<ctime>
 using namespace std;
 
 void main() {

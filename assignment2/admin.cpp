@@ -1,7 +1,7 @@
 #pragma once
-#include "admin.h"
-#include "menu.h"
-#include "file.h"
+#include"admin.h"
+#include"menu.h"
+#include"file.h"
 void admin::sign_in(){
 	menu m;
 	m.loading();

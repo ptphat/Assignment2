@@ -1,5 +1,7 @@
 #pragma once
 #include"account.h"
+#include"request_manager.h"
+#include"book.h"
 
 class file
 {
@@ -11,5 +13,8 @@ public:
 	void write_manager(account *arrayacc, int size);
 	void read_admin(account *arrayacc, int size);
 	void write_admin(account *arrayacc, int size);
+	void read_book(book *arraybk, int size);
+	void read_request(request_manager *arrrq, int size);
+	void write_request(request_manager *arrrq, int size);
 };
 

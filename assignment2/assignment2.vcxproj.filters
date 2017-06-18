@@ -36,6 +36,9 @@
     <ClInclude Include="admin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="request_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="account.cpp">
@@ -62,6 +65,9 @@
     <ClCompile Include="admin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="request_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="manager_data.txt">
@@ -73,5 +79,15 @@
     <Text Include="admin_data.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="book.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="request.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

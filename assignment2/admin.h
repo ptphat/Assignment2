@@ -1,5 +1,7 @@
 #pragma once
+#include"account.h"
 #include"reader.h"
+
 
 class admin : public reader{
 public:

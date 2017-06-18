@@ -1,6 +1,7 @@
 #pragma once
 #include"menu.h"
 
+
 void menu::welcome() {
 	system("cls");
 	cout << endl << endl << endl;
@@ -117,6 +118,7 @@ void menu::signup_menu() {
 			else verify = 0;
 		}
 	}
+	delete[] arrayaccount;
 	if (verify == 0) {
 		cout << "Enter your password: ";
 		fflush(stdin);

@@ -1,13 +1,14 @@
 #pragma once
-#include"book.h"
-#include "account.h"
+#include"account.h"
 
 class book
 {
 public:
+	string id;
 	string author;
 	string date;
 	string title;
+	int num;
 	string describe;
 
 public:
