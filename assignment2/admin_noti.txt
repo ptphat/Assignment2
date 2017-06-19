@@ -1,6 +1,10 @@
 User "ptp" has registered.
 User "lollipop" has registered on 2017-06-19 11:37:43.
 User "p" has registered on 2017-06-19 11:41:06.
-
 The book named "1" of "1" has been added on 2017-06-19 12:31:32.
 The book named "2" of "2" has been added on 2017-06-19 12:31:37.
+User "f" has registered on 2017-06-19 14:22:19.
+User "ptp" has registered on 2017-06-19 14:33:56.
+User "a" has registered on 2017-06-19 15:27:05.
+User "b" has registered on 2017-06-19 15:47:42.
+The book named "4" of "4" has been added on 2017-06-19 15:48:36.

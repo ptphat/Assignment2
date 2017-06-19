@@ -120,9 +120,12 @@ void menu::mainmenu() {
 	case 4: {
 		system("cls");
 		cout << "Cheking for update: No update is available" << endl;
-		cout << "Version: 1.5 (19, July, 2017)" << endl;
+		cout << "Version: 2.2 (25, July, 2017)" << endl;
 		cout << "Member:" << endl;
-		cout << "Tran Nhan Vu (leader)"<< endl << "Pham Thanh Phat" << endl << "Ung Van Duy"<< endl << "Phan Ngoc Thinh" << endl;
+		cout << left << setw(30) << "Tran Nhan Vu (leader)" << setw(15) << "161xxxx" << endl;
+		cout << left << setw(30) << "Pham Thanh Phat" << setw(15) << "1612537" << endl;
+		cout << left << setw(30) << "Ung Van Duy" << setw(15) << "1610512" << endl;
+		cout << left << setw(30) << "Phan Ngoc Thinh" << setw(15) << "1613361" << endl;
 		system("pause>nul");
 		mainmenu();
 	}

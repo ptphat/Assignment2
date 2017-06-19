@@ -11,7 +11,8 @@ public:
 	string email;
 	string phonenumber;
 	string password;
-	int role; //Xác định vai trò của tài khoản 0:admin, 1:manager, 2:reader
+	bool active;
+//	int role; //Xác định vai trò của tài khoản 0:admin, 1:manager, 2:reader
 public:
 	string get_id() { return id; }
 	string get_date() { return date; };

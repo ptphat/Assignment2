@@ -182,7 +182,7 @@ void admin::edit_profile() {
 				}
 				cout << "Enter new password: ";
 				fflush(stdin);
-				cin >> newpass;
+				getline(cin, newpass);
 				menu m;
 				while (m.verify_semicolon(newpass) == 1) {
 					cout << "Your password word mustn't content char \';\', retype it: ";
@@ -204,11 +204,13 @@ void admin::edit_profile() {
 				cout << "Your current name: " << a[position].get_name() << endl;
 				cout << "Enter your new name: ";
 				string newname;
+				fflush(stdin);
 				getline(cin, newname);
 				menu m;
 				while (m.verify_semicolon(newname) == 1) {
 					cout << "Your name mustn't content char \';\', retype it: ";
-					cin >> newname;
+					fflush(stdin);
+					getline(cin, newname);
 				}
 				if (m.verify_semicolon(newname) == 0) {
 					a[position].set_name(newname);
@@ -226,10 +228,12 @@ void admin::edit_profile() {
 				cout << "Your current birthday: " << a[position].get_birthday() << endl;
 				cout << "Enter new birthday: ";
 				string newbirth;
+				fflush(stdin);
 				getline(cin, newbirth);
 				menu m;
 				while (m.verify_semicolon(newbirth) == 1) {
 					cout << "Your birthday mustn't content char \';\', retype it: ";
+					fflush(stdin);
 					getline(cin, newbirth);
 				}
 				if (m.verify_semicolon(newbirth) == 0) {
