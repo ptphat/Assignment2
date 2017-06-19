@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"independent_function.h"
 
 
@@ -9,6 +9,10 @@ public:
 	string usrname;
 	string title;
 	int quantity;
-	int verify; // Xac thuc su chap nhan cua manager
+	// Xac thuc su chap nhan cua manager 0: request duoc chap nhan, 1: Chua duoc chap nhan, 2: bị tu choi
+	int accept;
+	//Xac thuc da di muon 0: da muon, 1: Chua di muon 
+	int borow;
+	
 };
 

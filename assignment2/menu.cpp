@@ -111,7 +111,8 @@ void menu::mainmenu() {
 	cout << setw(17) << "" << "https://github.com/ptphat/assignment2" << endl << endl;
 	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "0. Exit" << endl;
 	int choice = 0;
-	choice = f.getchoice(0, 4);
+	fflush(stdin);
+	choice = getchoice(0, 4);
 	switch (choice)
 	{
 	case 1: as_role();	break;

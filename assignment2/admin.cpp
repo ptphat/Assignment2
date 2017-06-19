@@ -53,10 +53,8 @@ void admin::sign_in(){
 		cout << "-----------------------------------------------------------------" << endl;
 		cout << "This user doesn't exist" << endl << "1. Try different account" << endl << "0. Back to main menu" << endl;
 		int choice = 0;
-		do {
-			cout << "Enter your choice: ";
-			cin >> choice;
-		} while (choice < 0 || choice >1);
+		fflush(stdin);
+		choice = getchoice(0, 1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
@@ -70,11 +68,8 @@ void admin::sign_in(){
 		cout << "Password is invalid" << endl;
 		cout << "1. Try to sign in again" << endl << "0. Back to main menu" << endl;
 		int choice = 0;
-		do {
-			cout << "Enter your choice: ";
-			fflush(stdin);
-			cin >> choice;
-		} while (choice < 0 || choice >1);
+		fflush(stdin);
+		choice = getchoice(0, 1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
@@ -93,7 +88,8 @@ void admin::user_menu() {
 	cout << "------------------------LIBRO (admin)------------------------" << endl;
 	cout << "1. Edit profile" << endl << "2. Add/block reader" << endl << "3. Search book" << endl << "4. Notification" << endl << "0. Log out" << endl;
 	int choice;
-	choice = f.getchoice(0, 5);
+	fflush(stdin);
+	choice = getchoice(0, 5);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
@@ -102,7 +98,8 @@ void admin::user_menu() {
 				cout << "Add or remove reader:" << endl;
 				cout << "1. Add" << endl << "2. Remove" << endl << "0. Back";
 				int choice;
-				choice = f.getchoice(0,2);
+				fflush(stdin);
+				choice = getchoice(0,2);
 				switch (choice){
 				case 1: {				
 					menu m;
@@ -124,14 +121,12 @@ void admin::user_menu() {
 				book b;
 				b.Display_all_book();
 				b.Find_book();
-				choice;
+				int choice;
 				cout << "Would you like to find again?" << endl;
 				cout << "1. Yes" << endl;
 				cout << "2. No" << endl;
-				do{
-					cout << "Enter your choice: ";
-					cin >> choice;
-				} while (choice<0 || choice>2);
+				fflush(stdin);
+				choice = getchoice(1, 2);
 				switch (choice){
 				case 1: b.Find_book(); break;
 				case 2: user_menu(); break;
@@ -160,7 +155,8 @@ void admin::edit_profile() {
 	system("cls");
 	cout << "Kind of informaion you want to change: " << endl << "1. User name" << endl << "2. Password" << endl << "3. Full name" << endl << "4. Birthday" << endl << "5. Phone number" << endl << "0. Back" << endl;
 	int choice = 0;
-	choice = f.getchoice(0, 5);
+	fflush(stdin);
+	choice = getchoice(0, 5);
 	switch (choice)
 	{
 	case 0: {user_menu(); } break;

@@ -6,7 +6,7 @@ void manager::sign_in(){
 	menu m;
 	m.loading();
 	system("cls");
-	cin.ignore();
+//	cin.ignore();
 	cout << "-------------------------SIGN IN (as manager)----------------------" << endl;
 	int size = 0;
 	string username, pass, st;
@@ -32,7 +32,7 @@ void manager::sign_in(){
 	getline(cin, username);
 	cout << "Enter your password: ";
 	fflush(stdin);
-	getline(cin, pass);
+	pass = getpass();
 	//	fflush(stdin);
 	int verify = 0;
 	for (int i = 0; i < size; i++) {
@@ -51,12 +51,10 @@ void manager::sign_in(){
 	}
 	if (verify == 2) {
 		cout << "-----------------------------------------------------------------" << endl;
-		cout << "This user doesn't exist" << endl << "0. Try different account" << endl << "2. Back to main menu" << endl;
+		cout << "This user doesn't exist" << endl << "1. Try different account" << endl << "0. Back to main menu" << endl;
 		int choice = 0;
-		do {
-			cout << "Enter your choice: ";
-			cin >> choice;
-		} while (choice < 0 || choice >1);
+		fflush(stdin);
+		choice = getchoice(0, 1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
@@ -68,13 +66,10 @@ void manager::sign_in(){
 	else if (verify == 1) {
 		cout << "-----------------------------------------------------------------" << endl;
 		cout << "Password is invalid" << endl;
-		cout << "1. Try to sign in again" << endl << "2. Back to main menu" << endl;
+		cout << "1. Try to sign in again" << endl << "0. Back to main menu" << endl;
 		int choice = 0;
-		do {
-			cout << "Enter your choice: ";
-			fflush(stdin);
-			cin >> choice;
-		} while (choice < 0 || choice >1);
+		fflush(stdin);
+		choice = getchoice(0, 1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
@@ -97,7 +92,7 @@ void manager::user_menu() {
 	f.read_request(rm, size);
 	int num_of_noti = 0;
 	for (int i = 0; i < size; i++){
-		if (rm[i].verify == 1){
+		if (rm[i].accept == 1){
 			num_of_noti++;
 		}
 	}
@@ -106,7 +101,8 @@ void manager::user_menu() {
 	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Modify book"<<endl<<"4. Add or remove book" << endl << "0. Log out" << endl;
 	int choice;
 	book b;
-	choice = f.getchoice(0, 4);
+	fflush(stdin);
+	choice = getchoice(0, 4);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
@@ -117,10 +113,8 @@ void manager::user_menu() {
 				b.Modify_book();
 				cout << endl << "Do you want to modify again?" << endl << "1. Yes" << endl << "2. No" << endl;
 				int choice;
-				do{
-					cout << "Enter your choice: ";
-					cin >> choice;
-				} while (choice<1 || choice >2);
+				fflush(stdin);
+				choice = getchoice(1, 2);
 				switch (choice){
 				case 1: b.Modify_book(); break;
 				case 2: user_menu(); break;
@@ -131,7 +125,8 @@ void manager::user_menu() {
 				system("cls");
 				cout << "1. Add book" << endl << "2. Remove book" << endl << "0. Back" << endl;
 				int choice;
-				choice = f.getchoice(0, 2);
+				fflush(stdin);
+				choice = getchoice(0, 2);
 				switch (choice)
 				{
 				case 1: {
@@ -139,7 +134,8 @@ void manager::user_menu() {
 							cout<<endl << "Do you want to add again?" << endl;
 							cout << "1. Yes" << endl << "2. No" << endl;
 							int choice_2;
-							choice_2 = f.getchoice(1, 2);
+							fflush(stdin);
+							choice_2 = getchoice(1, 2);
 							switch (choice_2){
 							case 1: b.Add_book(); break;
 							case 2: user_menu(); break;
@@ -193,20 +189,20 @@ void manager::edit_profile() {
 				cout << "Current password: ";
 				string pass, newpass;
 				fflush(stdin);
-				getline(cin, pass);
+				pass = getpass();
 				while (pass != a[position].get_password()) {
 					cout << "Invalid password" << endl << "Enter your current password again: ";
 					fflush(stdin);
-					getline(cin, pass);
+					pass = getpass();
 				}
 				cout << "Enter new password: ";
 				fflush(stdin);
-				getline(cin, newpass);
+				newpass = getpass();
 				menu m;
 				while (m.verify_semicolon(newpass) == 1) {
 					cout << "Your password word mustn't content char \';\', retype it: ";
 					fflush(stdin);
-					getline(cin, newpass);
+					newpass = getpass();
 				}
 				if (m.verify_semicolon(newpass) == 0) {
 					a[position].set_password(newpass);
@@ -219,15 +215,17 @@ void manager::edit_profile() {
 	} break;
 	case 3: {
 				system("cls");
-				cout << "----------------CHANGE YOUR NAME---------------------";
+				cout << "----------------CHANGE YOUR NAME---------------------"<<endl;
 				cout << "Your current name: " << a[position].get_name() << endl;
 				cout << "Enter your new name: ";
 				string newname;
-				cin >> newname;
+				fflush(stdin);
+				getline(cin, newname);
 				menu m;
 				while (m.verify_semicolon(newname) == 1) {
 					cout << "Your name mustn't content char \';\', retype it: ";
-					cin >> newname;
+					fflush(stdin);
+					getline(cin, newname);
 				}
 				if (m.verify_semicolon(newname) == 0) {
 					a[position].set_name(newname);
@@ -241,14 +239,16 @@ void manager::edit_profile() {
 		break;
 	case 4: {
 				system("cls");
-				cout << "----------------CHANGE BIRTHDAY---------------------";
+				cout << "----------------CHANGE BIRTHDAY---------------------"<<endl;
 				cout << "Your current birthday: " << a[position].get_birthday() << endl;
 				cout << "Enter new birthday: ";
 				string newbirth;
+				fflush(stdin);
 				getline(cin, newbirth);
 				menu m;
 				while (m.verify_semicolon(newbirth) == 1) {
 					cout << "Your birthday mustn't content char \';\', retype it: ";
+					fflush(stdin);
 					getline(cin, newbirth);
 				}
 				if (m.verify_semicolon(newbirth) == 0) {
@@ -263,7 +263,7 @@ void manager::edit_profile() {
 		break;
 	case 5: {
 				system("cls");
-				cout << "----------------CHANGE PHONE---------------------";
+				cout << "----------------CHANGE PHONE---------------------" << endl;
 				cout << "Your current birthday: " << a[position].get_phone() << endl;
 				cout << "Enter new birthday: ";
 				string newphone;
@@ -303,7 +303,7 @@ void manager::notification(){
 	cout << "----------------------NOTIFICATION---------------------" << endl;
 	int j = 0; // Bien danh so thu tu notification
 	for (int i = 0; i < size; i++){
-		if (rm[i].verify == 1){
+		if (rm[i].accept == 1){
 			j++;
 			p[j] = i;
 			cout << j << ". User \"" << rm[i].usrname << "\" want to borrow " << rm[i].quantity << " book(s) named \"" << rm[i].title << "\" on: " << rm[i].date << endl;
@@ -318,12 +318,12 @@ void manager::notification(){
 	}
 	else{
 		cout << "-------------------------------------------------------------------------" << endl;
-		cout << "1. Accept request" << endl << "0. Back" << endl;
+		cout << "1. Accept request" << endl << "2. Deny request" << endl << "0. Back" << endl;
 		int choice;
 		do {
 			cout << "Enter your choice: ";
 			cin >> choice;
-		} while (choice<0 || choice>1);
+		} while (choice<0 || choice>2);
 		switch (choice){
 		case 0: user_menu(); break;
 		case 1: {
@@ -333,17 +333,45 @@ void manager::notification(){
 						fflush(stdin);
 						cin >> choice;
 					} while (choice <1 || choice >j);
-					rm[p[choice]].verify = 0; //Yeu cau duoc chap nhan
+					rm[p[choice]].accept = 0; //Yeu cau duoc chap nhan
 					file f;
 					f.write_request(rm, size);
-					delete[] p, rm;
+					delete[] rm;
 					cout << "Success!!!" << endl;
 					system("pause>nul");
 					notification();
 		}
+		case 2:{
+				   int choice;
+				   do{
+					   cout << "Choose which request you want to deny: ";
+					   fflush(stdin);
+					   cin >> choice;
+				   } while (choice <1 || choice >j);
+				   rm[p[choice]].accept = 2; //Yeu cau khong duoc chap nhan
+				   f.write_request(rm, size);
+				   file f;
+				   fstream bk("book.txt", ios::in | ios::out);
+				   int _size;
+				   _size = f.size(bk);
+				   bk.close();
+				   book *b = new book[_size];
+				   f.read_book(b, _size);
+				   for (int i = 0; i < _size; i++) {
+					   if (b[i].title == rm[p[choice]].title) {
+						   b[i].num += rm[p[choice]].quantity;
+					   }
+				   }
+				   f.write_list_book(b, _size);
+				   delete[] rm;
+				   delete[] p;
+				   cout << "Success!!!" << endl;
+				   system("pause>nul");
+				   notification();
+		}
 		}
 	}
-
+	delete[] p;
 }
 
 manager::manager()

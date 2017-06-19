@@ -22,10 +22,8 @@ public:
 		cout << "-------------------------SIGN IN-------------------------" << endl;
 		cout << "Sign in as: " << endl << "1. Reader" << endl << "2. Manager" << endl << "3. Admin"<< endl << "0. Back" << endl;
 		int choice = 0;
-		do {
-			cout << "Enter your choice: ";
-			cin >> choice;
-		} while (choice < 0 || choice >3);
+		fflush(stdin);
+		choice = getchoice(0, 3);
 		switch (choice)
 		{
 		case 1: {reader *r= new reader; r->sign_in(); } break;

@@ -8,10 +8,8 @@ void reader::user_menu() {
 	cout << "------------------------LIBRO (USER)------------------------" << endl;
 	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification"<<endl<<"4. Search book" << endl << "0. Log out" << endl;
 	int choice;
-	do {
-		cout << "Enter your choice: ";
-		cin >> choice;
-	} while (choice < 0 || choice >4);
+	fflush(stdin);
+	choice = getchoice(0, 4);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
@@ -22,14 +20,12 @@ void reader::user_menu() {
 				book b; 
 				b.Display_all_book(); 
 				b.Find_book(); 
-				choice;
+				int choice;
 				cout << "Would you like to find again?"<<endl;
 				cout << "1. Yes" << endl;
 				cout << "2. No" << endl;
-				do{
-					cout << "Enter your choice: ";
-					cin >> choice;
-				} while (choice<0 || choice>2);
+				fflush(stdin);
+				choice = getchoice(1, 2);
 				switch (choice){
 				case 1: b.Find_book(); break;
 				case 2: user_menu(); break;
@@ -43,7 +39,7 @@ void reader::sign_in() {
 	menu m;
 	m.loading();
 	system("cls");
-	cin.ignore();
+//	cin.ignore();
 	cout << "----------------------SIGN IN (as reader)----------------------" << endl;
 	int size = 0;
 	string username, pass, st;
@@ -71,7 +67,7 @@ void reader::sign_in() {
 	getline(cin, username);
 	cout << "Enter your password: ";
 	fflush(stdin);
-	getline(cin, pass);
+	pass = getpass();
 	//	fflush(stdin);
 	int verify = 0;
 	for (int i = 0; i < size; i++) {
@@ -93,10 +89,8 @@ void reader::sign_in() {
 		cout << "-----------------------------------------------------------------" << endl;
 		cout << "This user doesn't exist" << endl << "1. Try different account" << endl << "0. Back to main menu" << endl;
 		int choice = 0;
-		do {
-			cout << "Enter your choice: ";
-			cin >> choice;
-		} while (choice < 0 || choice >1);
+		fflush(stdin);
+		choice = getchoice(0, 1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
@@ -110,11 +104,8 @@ void reader::sign_in() {
 		cout << "Password is invalid" << endl;
 		cout << "1. Try to sign in again" << endl << "0. Back to main menu" << endl;
 		int choice = 0;
-		do {
-			cout << "Enter your choice: ";
-			fflush(stdin);
-			cin >> choice;
-		} while (choice < 0 || choice >1);
+		fflush(stdin);
+		choice = getchoice(0, 1);
 		switch (choice)
 		{
 		case 1: sign_in(); break;
@@ -144,10 +135,8 @@ void reader::edit_profile() {
 	system("cls");
 	cout << "Kind of informaion you want to change: " << endl << "1. User name" << endl << "2. Password" << endl << "3. Full name" << endl << "4. Birthday" << endl << "5. Phone number" << endl << "0. Back"<<endl;
 	int choice = 0;
-	do {
-		cout << "Enter your choice: ";
-		cin >> choice;
-	} while (choice < 0 || choice > 5);
+	fflush(stdin);
+	choice = getchoice(0, 5);
 	switch (choice)
 	{
 	case 0: user_menu(); break;
@@ -161,20 +150,20 @@ void reader::edit_profile() {
 		cout << "Current password: ";
 		string pass, newpass;
 		fflush(stdin);
-		getline(cin, pass);
+		pass = getpass();
 		while (pass != a[position].get_password()) {
 			cout << "Invalid password" << endl << "Enter your current password again: ";
 			fflush(stdin);
-			cin >> pass;
+			pass = getpass();
 		}
 		cout << "Enter new password: ";
 		fflush(stdin);
-		cin >> newpass;
+		newpass = getpass();
 		menu m;
 		while (m.verify_semicolon(newpass) == 1) {
 			cout << "Your password word mustn't content char \';\', retype it: ";
 			fflush(stdin);
-			cin >> newpass;
+			newpass = getpass();
 		}
 		if (m.verify_semicolon(newpass) == 0) {
 			a[position].set_password(newpass);
@@ -245,7 +234,7 @@ void reader::edit_profile() {
 		while (m.verify_semicolon(newphone) == 1) {
 			cout << "Your birthday mustn't content char \';\', retype it: ";
 			fflush(stdin);
-			cin >> newphone;
+			getline(cin, newphone);
 		}
 		if (m.verify_semicolon(newphone) == 0) {
 			a[position].set_phone(newphone);
@@ -294,10 +283,8 @@ void reader::bookrequest(){
 		cout << "Sorry that book doesn't exist or you have typed incorrect the name" << endl;
 		cout << "1. Retry" << endl << "0. Exit" << endl;
 		int choice;
-		do {
-			cout << "Enter your choice: ";
-			cin >> choice;
-		} while (choice<0 | choice>1);
+		fflush(stdin);
+		choice = getchoice(0, 1);
 		switch (choice)
 		{
 		case 1: bookrequest(); break;
@@ -312,12 +299,13 @@ void reader::bookrequest(){
 			cout << "How many book do you want: ";
 			cin >> quantity;
 		} while (quantity <0 || quantity > b[position].num);
-
+		b[position].num -= quantity;
+		f.write_list_book(b, size);
 		fstream request("request.txt", ios::out | ios::app);
-		request << currentDateTime() << ';' << usrname_signed_in << ';' << b[position].title << ';' << quantity << ';' << "1" << ';' << endl;
+		request << currentDateTime() << ';' << usrname_signed_in << ';' << b[position].title << ';' << quantity << ';' << "1" << ';' << "1" << ';' << endl;
+		// 1 chưa được accept ; 1 chưa đi mượn
 		cout << "Success!!!" << endl;
 		system("pause>nul");
-		// 1 chưa được accept
 		request.close();
 		delete[] b;
 		user_menu();
@@ -327,21 +315,27 @@ void reader::notification(){
 	system("cls");
 	cout << "---------------------------NOTIFICATION---------------------------" << endl;
 	file f;
-	fstream rdr_data("reader_data.txt", ios::in | ios::out);
+	fstream rdr_data("request.txt", ios::in | ios::out);
 	int size;
 	size = f.size(rdr_data);
 	rdr_data.close();
 	request_manager *arr = new request_manager[size];
 	f.read_request(arr, size);
+
 	int position = -1;
 	bool exist = false; //Kiem tra su ton tai cua thong bao
 	for (int i = 0; i < size; i++){
 		if (arr[i].usrname == usrname_signed_in){
-			if (arr[i].verify == 0) {
+			if (arr[i].accept == 0) {
 				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been accepted." << endl; 
 				exist = true;
 			}
-
+			else if (arr[i].accept == 2) {
+				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been denied." << endl;
+			}
+			else if (arr[i].accept==1) {
+				cout << "You have requested " << arr[i].quantity << " book(s) named \"" << arr[i].title << "\"." << endl;
+			}
 		}
 	}
 	if (exist == false){
