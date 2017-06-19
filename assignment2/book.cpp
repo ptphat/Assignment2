@@ -1,6 +1,5 @@
 #include"book.h"
 #include"file.h"
-
 book::book(){
 	id = "#";
 	author = "NO INFORMATION";
@@ -12,48 +11,50 @@ book::book(){
 
 void book::Add_book(){
 	int size;
-	cout << "\n-Enter the number of book you want to add: ";
+	cout << "\nEnter the number of book you want to add: ";
 	cin >> size;
 	string s;
 	book *list = new book[size];
 	for (int i = 0; i < size; i++){
 		cout << "\n\n-BOOK " << i + 1 << ":";
-		cout << "\n-Enter book id: ";
+		cout << "\nEnter book id: ";
 		fflush(stdin);
 		getline(cin, s);
 		list[i].Set_id(s);
-		cout << "-Enter book name: ";
+		cout << "Enter book name: ";
 		fflush(stdin);
 		getline(cin, s);
 		list[i].Set_title(s);
-		cout << "-Enter book's author: ";
+		cout << "Enter book's author: ";
 		fflush(stdin);
 		getline(cin, s);
 		list[i].Set_author(s);
-		cout << "-Enter date publish: ";
+		cout << "Enter date publish: ";
 		fflush(stdin);
 		getline(cin, s);
 		list[i].Set_date(s);
-		cout << "-Enter describe about book: ";
+		cout << "Enter describe about book: ";
 		fflush(stdin);
 		getline(cin, s);
 		list[i].Set_describe(s);
-		cout << "-Enter number of book available: ";
+		cout << "Enter number of book available: ";
 		int n0;
 		cin >> n0;
 		list[i].Set_num_of_book(n0);
-
+		fstream ad_noti("admin_noti.txt", ios::out | ios::app); // Ghi vao file thong bao cua admin
+			ad_noti << "The book named \"" << list[i].Get_title() << "\" of \"" << list[i].Get_author() << "\" has been added on " << currentDateTime() << "." << endl;
+		ad_noti.close();
 	}
 
 	// save number of book to file
 	fstream f("book.txt", ios::out | ios::app);
 	for (int i = 0; i < size; i++){
-		f << list[i].Get_book_id() << ";" << list[i].Get_author() << ";" << list[i].Get_date() << ";" << list[i].Get_title() << ";" << list[i].Get_num_of_book() << ";" << list[i].Get_describe() << endl;
+		f << list[i].Get_book_id() << ";" << list[i].Get_title() << ";" << list[i].Get_author() << ";" << list[i].Get_date() << ";" << list[i].Get_num_of_book() << ";" << list[i].Get_describe() << ";" << endl;
 	}
-	f.close();
 
+	f.close();
 	cout << "\n----- Add book successful ------";
-	Sleep(1000);
+//	Sleep(1000);
 	// delete pointer
 	delete[] list;
 	list = NULL;

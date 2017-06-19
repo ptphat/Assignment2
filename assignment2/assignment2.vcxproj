@@ -15,6 +15,7 @@
     <ClInclude Include="admin.h" />
     <ClInclude Include="book.h" />
     <ClInclude Include="file.h" />
+    <ClInclude Include="independent_function.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="reader.h" />
@@ -25,6 +26,7 @@
     <ClCompile Include="admin.cpp" />
     <ClCompile Include="book.cpp" />
     <ClCompile Include="file.cpp" />
+    <ClCompile Include="independent_function.cpp" />
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="reader.cpp" />
@@ -33,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="admin_data.txt" />
+    <Text Include="admin_noti.txt" />
     <Text Include="book.txt" />
     <Text Include="manager_data.txt" />
     <Text Include="reader_data.txt" />

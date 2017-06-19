@@ -1,11 +1,25 @@
 #pragma once
-#include"account.h"
+#include"independent_function.h"
 #include"request_manager.h"
 #include"book.h"
-
-class file
+#include"account.h"
+class file : public independent_function
 {
 public:
+	int clean_stdin() {
+		while (getchar() != '\n') {
+		}
+		return 1;
+	}
+	int getchoice(int begin, int end){
+		int choice;
+		char c;
+		do{
+			cout << "Enter your choice: ";
+			fflush(stdin);
+		} while (((scanf_s("%d%c", &choice, &c) != 2 || c != '\n') && clean_stdin()) || choice < begin || choice > end);
+		return choice;
+	}
 	int size(fstream &file);
 	void read_reader(account *arrayacc, int size);
 	void write_reader(account *arryacc, int size);

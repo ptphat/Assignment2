@@ -1,6 +1,6 @@
 #pragma once
 #include"file.h"
-
+#include"account.h"
 
 
 int file::size(fstream &file) {

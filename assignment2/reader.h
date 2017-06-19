@@ -1,4 +1,5 @@
 #pragma once
+#include"independent_function.h"
 #include"account.h"
 
 

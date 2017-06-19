@@ -1,10 +1,9 @@
 #pragma once
-#include"account.h"
+#include"independent_function.h"
 #include"manager.h"
 #include"admin.h"
-class menu
+class menu : public independent_function
 {
-
 public:
 	int verify_semicolon(string st) { //Xac thuc dau ';'
 		int verify = 0;
@@ -17,9 +16,6 @@ public:
 		}
 		return verify;
 	}
-	void welcome();
-	void loading();
-	void goodbye();
 	void signup_menu();
 	void as_role(){
 		system("cls");

@@ -1,5 +1,5 @@
 #pragma once
-#include"account.h"
+#include"independent_function.h"
 #include"reader.h"
 #include"request_manager.h"
 class manager : public reader{

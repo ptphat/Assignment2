@@ -1,7 +1,7 @@
 #pragma once
-#include"account.h"
+#include"independent_function.h"
 
-class book
+class book : public independent_function
 {
 public:
 	string id;

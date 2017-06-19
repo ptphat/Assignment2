@@ -2,8 +2,6 @@
 #include"manager.h"
 #include"menu.h"
 #include"file.h"
-#include"book.h"
-
 void manager::sign_in(){
 	menu m;
 	m.loading();
@@ -105,19 +103,17 @@ void manager::user_menu() {
 	}
 	delete[] rm;
 	cout << "------------------------LIBRO (MANAGER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Modify book" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Modify book"<<endl<<"4. Add or remove book" << endl << "0. Log out" << endl;
 	int choice;
-	do {
-		cout << "Enter your choice: ";
-		cin >> choice;
-	} while (choice < 0 || choice >3);
+	book b;
+	choice = f.getchoice(0, 4);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
 	case 1: edit_profile(); break;
 	case 2: notification(); break;
 	case 3: {
-				book b;
+				system("cls");
 				b.Modify_book();
 				cout << endl << "Do you want to modify again?" << endl << "1. Yes" << endl << "2. No" << endl;
 				int choice;
@@ -131,6 +127,34 @@ void manager::user_menu() {
 				}
 
 	} break;
+	case 4: {
+				system("cls");
+				cout << "1. Add book" << endl << "2. Remove book" << endl << "0. Back" << endl;
+				int choice;
+				choice = f.getchoice(0, 2);
+				switch (choice)
+				{
+				case 1: {
+							b.Add_book();
+							cout<<endl << "Do you want to add again?" << endl;
+							cout << "1. Yes" << endl << "2. No" << endl;
+							int choice_2;
+							choice_2 = f.getchoice(1, 2);
+							switch (choice_2){
+							case 1: b.Add_book(); break;
+							case 2: user_menu(); break;
+							}
+				}
+					break;
+				case 2:{
+						   cout << "This option is not available" << endl;
+						   system("pause>nul");
+						   user_menu();
+				}
+				default:
+					break;
+				}
+	}
 	default:
 		break;
 	}

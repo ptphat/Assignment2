@@ -1,20 +1,15 @@
-﻿Build started 6/18/2017 8:19:32 PM.
+﻿Build started 6/19/2017 12:32:51 PM.
      1>Project "C:\Users\Phat\Source\Repos\assignment2\assignment2\assignment2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt book.cpp manager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt manager.cpp
          manager.cpp
-     1>c:\users\phat\source\repos\assignment2\assignment2\menu.h(11): warning C4018: '<' : signed/unsigned mismatch
-         book.cpp
-     1>c:\users\phat\source\repos\assignment2\assignment2\book.cpp(168): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\phat\source\repos\assignment2\assignment2\book.cpp(171): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\phat\source\repos\assignment2\assignment2\book.cpp(175): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\phat\source\repos\assignment2\assignment2\book.cpp(178): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
+     1>c:\users\phat\source\repos\assignment2\assignment2\menu.h(10): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Phat\Source\Repos\assignment2\Debug\assignment2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Phat\Source\Repos\assignment2\Debug\assignment2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Phat\Source\Repos\assignment2\Debug\assignment2.lib" /MACHINE:X86 Debug\account.obj
          Debug\admin.obj
          Debug\book.obj
          Debug\file.obj
+         Debug\independent_function.obj
          Debug\manager.obj
          Debug\menu.obj
          Debug\reader.obj
@@ -25,4 +20,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.15
+Time Elapsed 00:00:01.35

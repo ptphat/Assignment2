@@ -89,19 +89,56 @@ void admin::sign_in(){
 }
 void admin::user_menu() {
 	system("cls");
+	file f;
 	cout << "------------------------LIBRO (admin)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Book request (from reader)" << endl << "3. Add/remove book" << endl << "4. Notification" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Add/block reader" << endl << "3. Search book" << endl << "4. Notification" << endl << "0. Log out" << endl;
 	int choice;
-	do {
-		cout << "Enter your choice: ";
-		cin >> choice;
-	} while (choice < 0 || choice >3);
+	choice = f.getchoice(0, 5);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
 	case 1: edit_profile(); break;
-	case 2: break;
-	case 3: break;
+	case 2: {
+				cout << "Add or remove reader:" << endl;
+				cout << "1. Add" << endl << "2. Remove" << endl << "0. Back";
+				int choice;
+				choice = f.getchoice(0,2);
+				switch (choice){
+				case 1: {				
+					menu m;
+					m.signup_menu();
+					user_menu(); 
+				}
+					break;
+				case 2: {
+							cout << "This option is unavailable!" << endl;
+							system("pause>nul");
+							user_menu();
+				}
+					break;
+				}
+
+	}
+		break;
+	case 3: {
+				book b;
+				b.Display_all_book();
+				b.Find_book();
+				choice;
+				cout << "Would you like to find again?" << endl;
+				cout << "1. Yes" << endl;
+				cout << "2. No" << endl;
+				do{
+					cout << "Enter your choice: ";
+					cin >> choice;
+				} while (choice<0 || choice>2);
+				switch (choice){
+				case 1: b.Find_book(); break;
+				case 2: user_menu(); break;
+				}
+	}
+		break;
+	case 4: {notification(); user_menu(); } break;
 	default:
 		break;
 	}
@@ -123,10 +160,7 @@ void admin::edit_profile() {
 	system("cls");
 	cout << "Kind of informaion you want to change: " << endl << "1. User name" << endl << "2. Password" << endl << "3. Full name" << endl << "4. Birthday" << endl << "5. Phone number" << endl << "0. Back" << endl;
 	int choice = 0;
-	do {
-		cout << "Enter your choice: ";
-		cin >> choice;
-	} while (choice < 0 || choice > 5);
+	choice = f.getchoice(0, 5);
 	switch (choice)
 	{
 	case 0: {user_menu(); } break;
@@ -236,6 +270,27 @@ void admin::edit_profile() {
 		break;
 	}
 	delete[] a;
+}
+void admin::notification(){
+	cout << "------------------------------NOTIFICATION-----------------------------------" << endl;
+	fstream ad_noti("admin_noti.txt", ios::in | ios::out);
+	int size;
+	file f;
+
+	size = f.size(ad_noti);
+	string *line = new string[size];
+	if (size == 0) { cout << "Empty!!!" << endl; }
+	else{
+		for (int i = 0; i < size; i++){
+			getline(ad_noti, line[i]);
+		}
+	}
+	for (int i = size - 1; i>=0; i--){
+		cout << line[i] << endl;
+	}
+	ad_noti.close();
+	system("pause>nul");
+
 }
 admin::admin()
 {

@@ -1,8 +1,8 @@
 #pragma once
-#include"account.h"
+#include"independent_function.h"
 
 
-class request_manager
+class request_manager : public independent_function
 {
 public:
 	string date;

@@ -1,4 +1,5 @@
 #include<iostream>
+#include"independent_function.h"
 #include"account.h"
 #include"file.h"
 #include"menu.h"

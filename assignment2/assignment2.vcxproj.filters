@@ -39,6 +39,9 @@
     <ClInclude Include="request_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="independent_function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="account.cpp">
@@ -68,6 +71,9 @@
     <ClCompile Include="request_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="independent_function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="manager_data.txt">
@@ -83,6 +89,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="request.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="admin_noti.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

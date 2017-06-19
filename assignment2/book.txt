@@ -1,3 +1,9 @@
 1;Lap trinh huong doi tuong;Pham Van At;20/10/1998;10;ahihi;
 2;Connan;Gosho Aoyama;1/6/2016;20;ahehe;
-3;One Piece;Quen cmnr;25/6/???;10;ahuhu;
+3;One Piece;Quen cmnr;25/6/???;10;ahuhu;xd;Superman;unknown;20/10/1998;10;ahihi;
+a;a;a;a;20;a;
+qe;a;a;a;10;a;
+135;2;2;2;2;2;
+156;3;3;3;3;3;
+1;1;1;1;1;1;
+2;2;2;2;2;2;

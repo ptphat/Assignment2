@@ -1,77 +1,14 @@
 #pragma once
 #include"menu.h"
+#include"file.h"
 
-
-void menu::welcome() {
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(36) << right << "W" << endl;
-	cout << setw(34) << "__" << endl;
-	Sleep(80);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(38) << right << "WEL" << endl;
-	cout << setw(38) << "______" << endl;
-	Sleep(80);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(40) << right << "WELCO" << endl;
-	cout << setw(42) << "__________" << endl;
-	Sleep(80);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(42) << right << "WELCOME" << endl;
-	cout << setw(45) << "_____________" << endl;
-	Sleep(150);
-}
-void menu::loading() {
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(43) << right << "LOADING.";
-	Sleep(30);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(44) << right << "LOADING..";
-	Sleep(30);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(45) << right << "LOADING...";
-	Sleep(30);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(46) << right << "LOADING....";
-	Sleep(60);
-}
-void menu::goodbye() {
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(36) << right << "G" << endl;
-	cout << setw(34) << "__" << endl;
-	Sleep(60);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(38) << right << "GOO" << endl;
-	cout << setw(38) << "______" << endl;
-	Sleep(60);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(40) << right << "GOODB" << endl;
-	cout << setw(42) << "__________" << endl;
-	Sleep(60);
-	system("cls");
-	cout << endl << endl << endl;
-	cout << setw(42) << right << "GOODBYE" << endl;
-	cout << setw(45) << "_____________" << endl;
-	Sleep(100);
-}
 void menu::signup_menu() {
 	loading();
 	system("cls");
 	cout << "----------------------SIGN UP (as reader)----------------------" << endl;
-	cin.ignore();
+//	cin.ignore();
 	string st;
 	int size = 0;
-
 	fstream user_read("reader_data.txt", ios::in | ios::out);
 	while (getline(user_read, st)) { size++; }
 	cout << "Number of account: " << size << endl;
@@ -81,6 +18,8 @@ void menu::signup_menu() {
 	for (int i = 0; i < size; i++) {
 		getline(user_read, st, ';');
 		arrayaccount[i].set_id(st);
+		getline(user_read, st, ';');
+		arrayaccount[i].set_date(st);
 		getline(user_read, st, ';');
 		arrayaccount[i].set_username(st);
 		getline(user_read, st);
@@ -128,53 +67,60 @@ void menu::signup_menu() {
 			fflush(stdin);
 			getline(cin, pass);
 		}
-		cout << "Full name: "; getline(cin, name);
+		cout << "Full name: ";
+		fflush(stdin); 
+		getline(cin, name);
 		while (verify_semicolon(name) == 1) {
 			cout << "Your full name mustn't content char \';\', please retype it: ";
 			fflush(stdin);
 			getline(cin, name);
 		}
-		cout << "Birthday: "; getline(cin, birthday);
+		cout << "Birthday: ";
+		fflush(stdin); 
+		getline(cin, birthday);
 		while (verify_semicolon(birthday) == 1) {
 			cout << "Your date of birth mustn't content char \';\', please retype it: ";
 			fflush(stdin);
 			getline(cin, birthday);
 		}
-		cout << "Phone number: "; getline(cin, phone);
+		cout << "Phone number: "; 
+		fflush(stdin);
+		getline(cin, phone);
 		while (verify_semicolon(phone) == 1) {
 			cout << "Your phone number mustn't content char \';\', please retype it: ";
 			fflush(stdin);
 			getline(cin, phone);
 		}
-		user_write << size << ";" << username << ";" << pass << ";" << name << ";" << birthday << ";" << phone << ";" << endl;
+		user_write << size << ';' << currentDateTime() << ';' << username << ';' << pass << ';' << name << ';' << birthday << ';' << phone << ';' << endl;
 		user_write.close();
-		cout << "Successful !!! Please press Enter and sign in again :)" << endl;
+		cout << "Successful !!!" << endl;
+		fstream ad_noti("admin_noti.txt", ios::out | ios::app); //Ghi vao file thong bao cua admin
+		ad_noti.clear();
+		ad_noti.seekg(0, 0);
+		ad_noti << "User \"" << username << "\" has registered on "<< currentDateTime()<<"." << endl;
+		ad_noti.close();
 		system("pause>nul");
-		mainmenu();
+//		mainmenu();
 	}
 }
 void menu::mainmenu() {
 	loading();
 	system("cls"); 
+	file f;
 	cout << "-------------- LIBRO (designed by Phat) --------------" << endl;
 	cout << setw(17) << "" << "https://github.com/ptphat/assignment2" << endl << endl;
 	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "0. Exit" << endl;
 	int choice = 0;
-	do {
-		cout << "Enter your choice: ";
-		fflush(stdin);
-		cin >> choice;
-	} while (choice < 0 || choice >4);
-
+	choice = f.getchoice(0, 4);
 	switch (choice)
 	{
 	case 1: as_role();	break;
-	case 2: signup_menu();	break;
+	case 2: {signup_menu();	mainmenu(); }break;
 	case 3: {loading(); change_theme_menu(); };	break;
 	case 4: {
 		system("cls");
 		cout << "Cheking for update: No update is available" << endl;
-		cout << "Version: 1.0.0 (15, July, 2017)" << endl;
+		cout << "Version: 1.5 (19, July, 2017)" << endl;
 		cout << "Member:" << endl;
 		cout << "Tran Nhan Vu (leader)"<< endl << "Pham Thanh Phat" << endl << "Ung Van Duy"<< endl << "Phan Ngoc Thinh" << endl;
 		system("pause>nul");

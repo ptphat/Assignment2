@@ -1,16 +1,8 @@
 ﻿#pragma once
 #include"reader.h"
-#include "menu.h"
+#include"menu.h"
+#include"book.h"
 #include"file.h"
-const string currentDateTime() {
-	time_t     now = time(0);
-	struct tm  tstruct;
-	char       buf[80];
-	tstruct = *localtime(&now);
-	strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
-
-	return buf;
-}
 void reader::user_menu() {
 	system("cls");
 	cout << "------------------------LIBRO (USER)------------------------" << endl;
@@ -64,6 +56,8 @@ void reader::sign_in() {
 	for (int i = 0; i < size; i++) {
 		getline(reader_read, st, ';');
 		arrayaccount[i].set_id(st);
+		getline(reader_read, st, ';');
+		arrayaccount[i].set_date(st);
 		getline(reader_read, st, ';');
 		arrayaccount[i].set_username(st);
 		getline(reader_read, st, ';');
@@ -314,10 +308,7 @@ void reader::bookrequest(){
 			cout << "How many book do you want: ";
 			cin >> quantity;
 		} while (quantity <0 || quantity > b[position].num);
-		time_t rawtime;
-		struct tm * timeinfo;
-		time(&rawtime);
-		timeinfo = localtime(&rawtime);
+
 		fstream request("request.txt", ios::out | ios::app);
 		request << currentDateTime() << ';' << usrname_signed_in << ';' << b[position].title << ';' << quantity << ';' << "1" << ';' << endl;
 		cout << "Success!!!" << endl;
