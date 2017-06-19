@@ -70,25 +70,29 @@ public:
 	}
 	void welcome() {
 		system("cls");
+		system("color 0C");
 		cout << endl << endl << endl;
 		cout << setw(36) << right << "W" << endl;
 		cout << setw(34) << "__" << endl;
-		Sleep(80);
+		Sleep(100);
 		system("cls");
+		system("color 0D");
 		cout << endl << endl << endl;
 		cout << setw(38) << right << "WEL" << endl;
 		cout << setw(38) << "______" << endl;
-		Sleep(80);
+		Sleep(100);
 		system("cls");
+		system("color 0E");
 		cout << endl << endl << endl;
 		cout << setw(40) << right << "WELCO" << endl;
 		cout << setw(42) << "__________" << endl;
-		Sleep(80);
+		Sleep(100);
 		system("cls");
+		system("color 0B");
 		cout << endl << endl << endl;
 		cout << setw(42) << right << "WELCOME" << endl;
 		cout << setw(45) << "_____________" << endl;
-		Sleep(150);
+		Sleep(160);
 	}
 	void loading() {
 		system("cls");
@@ -110,21 +114,25 @@ public:
 	}
 	void goodbye() {
 		system("cls");
+		system("color 0C");
 		cout << endl << endl << endl;
 		cout << setw(36) << right << "G" << endl;
 		cout << setw(34) << "__" << endl;
 		Sleep(60);
 		system("cls");
+		system("color 0D");
 		cout << endl << endl << endl;
 		cout << setw(38) << right << "GOO" << endl;
 		cout << setw(38) << "______" << endl;
 		Sleep(60);
 		system("cls");
+		system("color 0E");
 		cout << endl << endl << endl;
 		cout << setw(40) << right << "GOODB" << endl;
 		cout << setw(42) << "__________" << endl;
 		Sleep(60);
 		system("cls");
+		system("color 0B");
 		cout << endl << endl << endl;
 		cout << setw(42) << right << "GOODBYE" << endl;
 		cout << setw(45) << "_____________" << endl;

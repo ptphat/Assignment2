@@ -6,10 +6,10 @@
 void reader::user_menu() {
 	system("cls");
 	cout << "------------------------LIBRO (USER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification"<<endl<<"4. Search book" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification"<<endl<<"4. Search book"<<endl<<"5. View list's book" << endl << "0. Log out" << endl;
 	int choice;
 	fflush(stdin);
-	choice = getchoice(0, 4);
+	choice = getchoice(0, 5);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
@@ -30,6 +30,11 @@ void reader::user_menu() {
 				case 1: b.Find_book(); break;
 				case 2: user_menu(); break;
 				}
+	}
+	case 5:{
+			   book b;
+			   b.Delete_book();
+			   user_menu();
 	}
 	default:
 		break;

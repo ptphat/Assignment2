@@ -86,7 +86,7 @@ void admin::user_menu() {
 	system("cls");
 	file f;
 	cout << "------------------------LIBRO (admin)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Add/block reader" << endl << "3. Search book" << endl << "4. Notification" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Add/block reader" << endl << "3. Search book" << endl << "4. Notification"<<endl<<"5. View book's list" << endl << "0. Log out" << endl;
 	int choice;
 	fflush(stdin);
 	choice = getchoice(0, 5);
@@ -134,6 +134,11 @@ void admin::user_menu() {
 	}
 		break;
 	case 4: {notification(); user_menu(); } break;
+	case 5:{
+			   book b;
+			   b.Delete_book();
+			   user_menu();
+	}
 	default:
 		break;
 	}

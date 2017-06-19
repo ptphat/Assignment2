@@ -107,7 +107,7 @@ void menu::mainmenu() {
 	loading();
 	system("cls"); 
 	file f;
-	cout << "-------------- LIBRO (designed by Phat) --------------" << endl;
+	cout << "-------------- LIBRO (designed by 4Duck) --------------" << endl;
 	cout << setw(17) << "" << "https://github.com/ptphat/assignment2" << endl << endl;
 	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "0. Exit" << endl;
 	int choice = 0;
@@ -120,10 +120,11 @@ void menu::mainmenu() {
 	case 3: {loading(); change_theme_menu(); };	break;
 	case 4: {
 		system("cls");
+		cout << "LIBRO - Final" << endl;
 		cout << "Cheking for update: No update is available" << endl;
 		cout << "Version: 2.2 (25, July, 2017)" << endl;
-		cout << "Member:" << endl;
-		cout << left << setw(30) << "Tran Nhan Vu (leader)" << setw(15) << "161xxxx" << endl;
+		cout << "4Duck's Member:" << endl;
+		cout << left << setw(30) << "Tran Nhan Vu (Leader)" << setw(15) << "161xxxx" << endl;
 		cout << left << setw(30) << "Pham Thanh Phat" << setw(15) << "1612537" << endl;
 		cout << left << setw(30) << "Ung Van Duy" << setw(15) << "1610512" << endl;
 		cout << left << setw(30) << "Phan Ngoc Thinh" << setw(15) << "1613361" << endl;

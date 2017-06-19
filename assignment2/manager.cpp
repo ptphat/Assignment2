@@ -98,11 +98,11 @@ void manager::user_menu() {
 	}
 	delete[] rm;
 	cout << "------------------------LIBRO (MANAGER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Modify book"<<endl<<"4. Add or remove book" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Modify book"<<endl<<"4. Add or remove book" <<endl<<"5. View book's list"<< endl << "0. Log out" << endl;
 	int choice;
 	book b;
 	fflush(stdin);
-	choice = getchoice(0, 4);
+	choice = getchoice(0, 5);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
@@ -123,6 +123,7 @@ void manager::user_menu() {
 	} break;
 	case 4: {
 				system("cls");
+				cout << "-----------------------------------------------------------" << endl;
 				cout << "1. Add book" << endl << "2. Remove book" << endl << "0. Back" << endl;
 				int choice;
 				fflush(stdin);
@@ -131,25 +132,21 @@ void manager::user_menu() {
 				{
 				case 1: {
 							b.Add_book();
-							cout<<endl << "Do you want to add again?" << endl;
-							cout << "1. Yes" << endl << "2. No" << endl;
-							int choice_2;
-							fflush(stdin);
-							choice_2 = getchoice(1, 2);
-							switch (choice_2){
-							case 1: b.Add_book(); break;
-							case 2: user_menu(); break;
-							}
+							 user_menu();
 				}
 					break;
 				case 2:{
-						   cout << "This option is not available" << endl;
-						   system("pause>nul");
+						   b.Delete_book();
 						   user_menu();
 				}
 				default:
 					break;
 				}
+	}
+	case 5:{
+			   b.Display_all_book();
+			   system("pause");
+			   user_menu();
 	}
 	default:
 		break;

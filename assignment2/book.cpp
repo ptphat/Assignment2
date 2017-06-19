@@ -242,3 +242,68 @@ void book::Display_all_book(){
 	}
 //	system("pause>nul");
 }
+void book::Delete_book(){
+	// Load data from file
+	fstream f0("book.txt", ios::in);
+	file f;
+	int size = f.size(f0);
+	f0.close();
+	book *list = new book[size];
+	f.read_list_book(list, size);
+
+	cout << "\n---------------- DELETE BOOK ----------------\n";
+	cout << "\nEnter ID of book you want to delete ";
+	cout << "\nIf you don't remember, let find it and come back";
+	cout << "\n-ID: ";
+	string s;
+	bool found = false;
+	fflush(stdin);
+	getline(cin, s);
+	// find ID in list book
+	for (int i = 0; i < size; i++){
+		if (s.compare(list[i].Get_book_id()) == 0){
+			found = true;
+			list[i].Display_book_info();
+			cout << endl;
+			cout << "\nDo you want to delete this book (y/n)?";
+			fflush(stdin);
+			cin >> s;
+			if (s == "y" || s == "Y"){
+				// delete
+				book *list_temp = new book[size - 1];
+				for (int j = 0; j < i; j++){
+					list_temp[j] = list[j];
+				}
+				for (int j = i + 1; j < size; j++){
+					list_temp[j - 1] = list[j];
+				}
+				// delete pointer
+				delete[] list;
+				list = NULL;
+				book *list = new book[size - 1];
+				for (int j = 0; j < size - 1; j++){
+					list[j] = list_temp[j];
+				}
+				//delete pointer
+				delete[] list_temp;
+				list_temp = NULL;
+				// SAVE CHANGE TO FILE
+				f.write_list_book(list, size - 1);
+				cout << "\n---- Delete successful -----";
+				Sleep(1500);
+
+				//delete pointer
+				delete[] list;
+				list = NULL;
+			}
+			else{
+				break;
+			}
+
+		}
+	} // <-- end for loop
+	if (!found){
+		cout << "\nNot found the book you want to delete !!!";
+		system("pause>nul");
+	}
+}

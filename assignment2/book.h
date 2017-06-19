@@ -18,6 +18,7 @@ public:
 	bool Find_book();
 	void Display_book_info();
 	void Display_all_book();
+	void Delete_book();
 	friend bool CheckSubstring(string, string);
 	string Get_book_id(){ return id; }
 	string Get_author(){ return author; }
