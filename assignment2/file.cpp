@@ -15,6 +15,7 @@ int file::size(fstream &file) {
 void file::read_reader(account *arrayacc,int size) {
 	fstream file("reader_data.txt", ios::in | ios::out);
 	string st;
+	bool s;
 	for (int i = 0; i < size; i++) {
 		fflush(stdin);
 		getline(file, st, ';');
@@ -37,7 +38,8 @@ void file::read_reader(account *arrayacc,int size) {
 		fflush(stdin);
 		getline(file, st, ';');
 		arrayacc[i].set_phone(st);
-		fflush(stdin);
+		file >> s;
+		arrayacc[i].set_active(s);
 		getline(file, st);
 	}
 	file.close();
@@ -45,7 +47,7 @@ void file::read_reader(account *arrayacc,int size) {
 void file::write_reader( account *arryacc, int size) {
 	fstream file("reader_data.txt", ios::in | ios::out);
 	for (int i = 0; i < size; i++) {
-		file << arryacc[i].get_id() << ';' << arryacc[i].get_date() << ';' << arryacc[i].get_username() << ';' << arryacc[i].get_password() << ';' << arryacc[i].get_name() << ';' << arryacc[i].get_birthday() << ';' << arryacc[i].get_phone() << ';' << endl;
+		file << arryacc[i].get_id() << ';' << arryacc[i].get_date() << ';' << arryacc[i].get_username() << ';' << arryacc[i].get_password() << ';' << arryacc[i].get_name() << ';' << arryacc[i].get_birthday() << ';' << arryacc[i].get_phone() << ';' << arryacc[i].get_active() << ';' << endl;
 	}
 	file.close();
 }

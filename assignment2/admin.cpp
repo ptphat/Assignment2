@@ -86,20 +86,26 @@ void admin::user_menu() {
 	system("cls");
 	file f;
 	cout << "------------------------LIBRO (admin)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Add/block reader" << endl << "3. Search book" << endl << "4. Notification"<<endl<<"5. View book's list" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile"<<endl<<"2. Display all reader" << endl << "3. Add/block reader" << endl << "4. Search book" << endl << "5. Notification"<<endl<<"6. View book's list" << endl << "0. Log out" << endl;
 	int choice;
 	fflush(stdin);
-	choice = getchoice(0, 5);
+	choice = getchoice(0, 6);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
 	case 1: edit_profile(); break;
-	case 2: {
-				cout << "Add or remove reader:" << endl;
-				cout << "1. Add" << endl << "2. Remove" << endl << "0. Back";
+	case 2:{
+			   show_all_reader();
+			   system("pause>nul");
+			   user_menu();
+	}
+	case 3: {
+				system("cls");
+				cout << "----------------------Add/Active/Block reader---------------------" << endl;
+				cout << "1. Add user" << endl<<"2. Active user"<<endl << "3. Block user" << endl << "0. Back";
 				int choice;
 				fflush(stdin);
-				choice = getchoice(0,2);
+				choice = getchoice(0,3);
 				switch (choice){
 				case 1: {				
 					menu m;
@@ -108,7 +114,61 @@ void admin::user_menu() {
 				}
 					break;
 				case 2: {
-							cout << "This option is unavailable!" << endl;
+							show_all_reader();
+							cout << "Enter user ID you need to active: ";
+							string id;
+							getline(cin, id);
+							file f;
+							fstream rdr_data("reader_data.txt", ios::in | ios::out);
+							int size = f.size(rdr_data);
+							rdr_data.close();
+							account *acc = new account[size];
+							f.read_reader(acc, size);
+							bool exist = false;
+							int position = -1;
+							for (int i = 0; i < size; i++){
+								if (acc[i].get_id() == id){
+									acc[i].set_active(1);
+									position = i;
+									exist = true;
+									break;
+								}
+							}
+							f.write_reader(acc, size);							
+							if (exist){
+								cout << acc[position].get_username()<< " has been actived!" << endl;
+							}
+							delete[] acc;
+							system("pause>nul");
+							user_menu();
+				}
+					break;
+				case 3: {
+							show_all_reader();
+							cout << "Enter user ID you need to block: ";
+							string id;
+							getline(cin, id);
+							file f;
+							fstream rdr_data("reader_data.txt", ios::in | ios::out);
+							int size = f.size(rdr_data);
+							rdr_data.close();
+							account *acc = new account[size];
+							f.read_reader(acc, size);
+							bool exist = false;
+							int position;
+							for (int i = 0; i < size; i++){
+								if (acc[i].get_id() == id){
+									acc[i].set_active(0);
+									position = i;
+									exist = true;
+									break;
+								}
+							}
+							f.write_reader(acc, size);
+							if (exist){
+								cout << acc[position].get_username() << " has been blocked!" << endl;
+							}
+							delete[] acc;
 							system("pause>nul");
 							user_menu();
 				}
@@ -117,7 +177,7 @@ void admin::user_menu() {
 
 	}
 		break;
-	case 3: {
+	case 4: {
 				book b;
 				b.Display_all_book();
 				b.Find_book();
@@ -133,8 +193,8 @@ void admin::user_menu() {
 				}
 	}
 		break;
-	case 4: {notification(); user_menu(); } break;
-	case 5:{
+	case 5: {notification(); user_menu(); } break;
+	case 6:{
 			   book b;
 			   b.Delete_book();
 			   user_menu();

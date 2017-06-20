@@ -124,6 +124,21 @@ void reader::sign_in() {
 		user_menu();
 	}
 }
+void reader::show_all_reader(){
+	file f;
+	fstream rdr_data("reader_data.txt", ios::in | ios::out);
+	int size = f.size(rdr_data);
+	rdr_data.close();
+	account *acc = new account[size];
+	f.read_reader(acc, size); 
+	cout << left << setw(10) << "ID" << setw(15) << "Username" << setw(25) << "Full Name" << setw(15) << "Birthday" << setw(15) << "Phone" << setw(25) << "Date" << setw(7) << "Active" << endl;
+	for (int i = 0; i < 112; i++) cout << "-";
+	cout << endl;
+	for (int i = 0; i < size; i++){
+		cout << left << setw(10) << acc[i].get_id() << setw(15) << acc[i].get_username() << setw(25) << acc[i].get_name() << setw(15) << acc[i].get_birthday() << setw(15) << acc[i].get_phone() << setw(25) << acc[i].get_date()<<setw(7)<<acc[i].get_active() << endl;
+	}
+	cout << endl;
+}
 void reader::edit_profile() {
 	fstream read_data("reader_data.txt", ios::in);
 	file f;

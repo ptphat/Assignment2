@@ -21,6 +21,7 @@ public:
 	string get_birthday() { return birthday; }
 	string get_password() { return password; }
 	string get_phone() { return phonenumber; }
+	bool get_active(){ return active; };
 
 	void set_id(string s) { id = s; }
 	void set_date(string s){ date = s; }
@@ -29,6 +30,6 @@ public:
 	void set_birthday(string s) { birthday = s; }
 	void set_password(string s) { password = s; }
 	void set_phone(string s) { phonenumber = s; }
-
+	void set_active(bool s){ active = s; }
 };
 
