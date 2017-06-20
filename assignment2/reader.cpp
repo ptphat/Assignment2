@@ -49,6 +49,7 @@ void reader::sign_in() {
 	cout << "----------------------SIGN IN (as reader)----------------------" << endl;
 	int size = 0;
 	string username, pass, st;
+	bool s;
 	fstream reader_read("reader_data.txt", ios::in | ios::out);
 	while (getline(reader_read, st)) { size++; }
 	cout << "Number of account: " << size << endl;
@@ -56,18 +57,33 @@ void reader::sign_in() {
 	reader_read.clear();
 	reader_read.seekg(0, 0);
 	for (int i = 0; i < size; i++) {
+		fflush(stdin);
 		getline(reader_read, st, ';');
 		arrayaccount[i].set_id(st);
+		fflush(stdin);
 		getline(reader_read, st, ';');
 		arrayaccount[i].set_date(st);
+		fflush(stdin);
 		getline(reader_read, st, ';');
 		arrayaccount[i].set_username(st);
+		fflush(stdin);
 		getline(reader_read, st, ';');
 		arrayaccount[i].set_password(st);
+		fflush(stdin);
+		getline(reader_read, st, ';');
+		arrayaccount[i].set_name(st);
+		fflush(stdin);
+		getline(reader_read, st, ';');
+		arrayaccount[i].set_birthday(st);
+		fflush(stdin);
+		getline(reader_read, st, ';');
+		arrayaccount[i].set_phone(st);
+		reader_read >> s;
+		arrayaccount[i].set_active(s);
 		getline(reader_read, st);
 	}
 	reader_read.close();
-
+	int position = size;
 	cout << "Enter your username: ";
 	fflush(stdin);
 	getline(cin, username);
@@ -79,6 +95,7 @@ void reader::sign_in() {
 	for (int i = 0; i < size; i++) {
 		if (username == arrayaccount[i].get_username()) {
 			if (pass == arrayaccount[i].get_password()) {
+				position = i;
 				verify = 0; // Dang nhap thanh cong
 				id_signed_in=arrayaccount[i].get_id();
 				usrname_signed_in = arrayaccount[i].get_username();
@@ -119,6 +136,12 @@ void reader::sign_in() {
 		default:
 			break;
 		}
+	}
+	else if ( arrayaccount[position].active == false && position != -1){
+		cout << "This account has been blocked!" << endl;
+		system("pause>nul");
+		menu m;
+		m.as_role();
 	}
 	else if (verify == 0) {
 		user_menu();

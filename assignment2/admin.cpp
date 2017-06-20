@@ -6,7 +6,7 @@ void admin::sign_in(){
 	menu m;
 	m.loading();
 	system("cls");
-	cin.ignore();
+//	cin.ignore();
 	cout << "-------------------------SIGN IN (as ADMIN)----------------------" << endl;
 	int size = 0;
 	string username, pass, st;
@@ -32,7 +32,7 @@ void admin::sign_in(){
 	getline(cin, username);
 	cout << "Enter your password: ";
 	fflush(stdin);
-	getline(cin, pass);
+	pass = getpass();
 	//	fflush(stdin);
 	int verify = 0;
 	for (int i = 0; i < size; i++) {
@@ -337,6 +337,7 @@ void admin::edit_profile() {
 	delete[] a;
 }
 void admin::notification(){
+	system("cls");
 	cout << "------------------------------NOTIFICATION-----------------------------------" << endl;
 	fstream ad_noti("admin_noti.txt", ios::in | ios::out);
 	int size;
@@ -354,8 +355,23 @@ void admin::notification(){
 		cout << line[i] << endl;
 	}
 	ad_noti.close();
-	system("pause>nul");
-
+	cout << "1. Clear all notification" << endl << "0. Back" << endl;
+	int choice;
+	choice = getchoice(0, 1);
+	switch (choice)
+	{
+	case 0: user_menu(); break;
+	case 1: {
+				system("del admin_noti.txt");
+				fstream noti("admin_noti.txt");
+				noti << "" << endl;
+				noti.close();
+	}
+		break;
+	default:
+		break;
+	}
+	//system("pause>nul");
 }
 admin::admin()
 {
