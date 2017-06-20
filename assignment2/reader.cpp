@@ -33,7 +33,8 @@ void reader::user_menu() {
 	}
 	case 5:{
 			   book b;
-			   b.Delete_book();
+			   b.Display_all_book();
+			   system("pause>nul");
 			   user_menu();
 	}
 	default:
@@ -267,25 +268,25 @@ void reader::bookrequest(){
 	u.close();
 	book *b = new book[size];
 	f.read_book(b, size);
-	cout << setw(30) << "Title" << setw(20) << "Author"<<setw(15)<<"Date" << setw(15) << "Quantity" << endl;
-	for (int i = 0; i < 80; i++) cout << "-";
+	cout << left << setw(10) << "ID" << setw(40) << "Title" << setw(20) << "Author" << setw(7) << "Quantity" << endl;
+	for (int i = 0; i < 77; i++) cout << "-";
 	cout << endl;
 	for (int i = 0; i < size; i++){
-		cout << setw(30) << b[i].title << setw(20) << b[i].author << setw(15) << b[i].date << setw(15) << b[i].num << endl;
+		cout << left << setw(10) << b[i].id << setw(40) << b[i].title << setw(20) << b[i].author << setw(7) << b[i].num << endl;
 	}
 	int position = -1;
-	string title;
-	cout<<endl << "Enter exactly the name of book you want to borrow: ";
+	string id;
+	cout<<endl << "Enter exactly the ID of book you want to borrow: ";
 	fflush(stdin);
-	getline(cin, title);
+	getline(cin, id);
 	for (int i = 0; i < size; i++){
-		if (b[i].title == title){
+		if (b[i].id == id){
 			position = i;
 			break;
 		}
 	}
 	if (position == -1){
-		cout << "Sorry that book doesn't exist or you have typed incorrect the name" << endl;
+		cout << "Sorry that book doesn't exist or you have typed incorrect the ID" << endl;
 		cout << "1. Retry" << endl << "0. Exit" << endl;
 		int choice;
 		fflush(stdin);
@@ -301,14 +302,15 @@ void reader::bookrequest(){
 	else {
 		int quantity;
 		do{
+			cout << left << setw(10) << b[position].id << setw(40) << b[position].title << setw(20) << b[position].author << setw(7) << b[position].num << endl;
 			cout << "How many book do you want: ";
 			cin >> quantity;
 		} while (quantity <0 || quantity > b[position].num);
 		b[position].num -= quantity;
 		f.write_list_book(b, size);
 		fstream request("request.txt", ios::out | ios::app);
-		request << currentDateTime() << ';' << usrname_signed_in << ';' << b[position].title << ';' << quantity << ';' << "1" << ';' << "1" << ';' << endl;
-		// 1 chưa được accept ; 1 chưa đi mượn
+		request << currentDateTime() << ';' << usrname_signed_in << ';' << b[position].title << ';' << quantity << ';' << "1" << ';' << "1" << ';' << "1" << ';' << endl;
+		// 1 chưa được accept ; 1 chưa đi mượn; 1: chua tra
 		cout << "Success!!!" << endl;
 		system("pause>nul");
 		request.close();
@@ -327,21 +329,29 @@ void reader::notification(){
 	request_manager *arr = new request_manager[size];
 	f.read_request(arr, size);
 
-	int position = -1;
+//	int position = -1;
 	bool exist = false; //Kiem tra su ton tai cua thong bao
-	for (int i = 0; i < size; i++){
-		if (arr[i].usrname == usrname_signed_in){
-			if (arr[i].accept == 0) {
-				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been accepted." << endl; 
-				exist = true;
+	for (int i = size - 1; i >= 0; i--){
+		if (arr[i].usrname == usrname_signed_in){ 
+			if (arr[i].give_back == 0){
+				cout << "You have returned " << arr[i].quantity << " of \"" << arr[i].title << "\"" << endl << endl;
+			}
+			else if (arr[i].borow == 0){
+				cout << "You have borrowed " << arr[i].quantity << " of \"" << arr[i].title << "\"" << endl << endl;
+			}
+			else if (arr[i].accept == 0) {
+				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been accepted." << endl;
+				cout << "You have 3 days to go to library and borrow this book." << endl;
+				cout << "If you don't, after 3 days your request will be cancel." << endl << endl;
 			}
 			else if (arr[i].accept == 2) {
-				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been denied." << endl;
+				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been denied." << endl << endl;
 			}
-			else if (arr[i].accept==1) {
-				cout << "You have requested " << arr[i].quantity << " book(s) named \"" << arr[i].title << "\"." << endl;
+			else if (arr[i].accept == 1) {
+				cout << "You have requested " << arr[i].quantity << " book(s) named \"" << arr[i].title << "\"." << endl << endl;
 			}
-		}
+			exist = true;
+		}	
 	}
 	if (exist == false){
 		cout << "Empty!!!";

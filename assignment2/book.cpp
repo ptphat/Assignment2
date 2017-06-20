@@ -15,11 +15,15 @@ void book::Add_book(){
 	cin >> size;
 	string s;
 	book *list = new book[size];
+	file temp;
+	fstream bk("book.txt", ios::in | ios::out);
+	int _size = temp.size(bk);
+	bk.close();
+
 	for (int i = 0; i < size; i++){
-		cout << "\n\n-BOOK " << i + 1 << ":";
-		cout << "\nEnter book id: ";
-		fflush(stdin);
-		getline(cin, s);
+		
+		cout << "\n\nBOOK " << i + 1 << ":";
+		s = getid_book(_size);
 		list[i].Set_id(s);
 		cout << "Enter book name: ";
 		fflush(stdin);
@@ -44,7 +48,9 @@ void book::Add_book(){
 		fstream ad_noti("admin_noti.txt", ios::out | ios::app); // Ghi vao file thong bao cua admin
 			ad_noti << "The book named \"" << list[i].Get_title() << "\" of \"" << list[i].Get_author() << "\" has been added on " << currentDateTime() << "." << endl;
 		ad_noti.close();
+		_size++;
 	}
+
 
 	// save number of book to file
 	fstream f("book.txt", ios::out | ios::app);
@@ -160,7 +166,6 @@ void book::Modify_book(){
 		system("pause>nul");
 	}
 }
-
 //===================================================================
 bool CheckSubstring(std::string firstString, std::string secondString){
 
@@ -186,7 +191,6 @@ bool CheckSubstring(std::string firstString, std::string secondString){
 	}
 	return false;
 }
-
 //===================================================
 bool book::Find_book(){
 	// Load data from file
@@ -215,7 +219,6 @@ bool book::Find_book(){
 	}
 	return found;
 }
-
 void book::Display_book_info(){
 	cout << "\n-Book ID: " << id;
 	cout << "\n-Book name: " << title;
@@ -224,7 +227,6 @@ void book::Display_book_info(){
 	cout << "\n-Number of book available: " << num;
 	cout << "\n-More describe: " << describe;
 }
-
 void book::Display_all_book(){
 	system("cls");
 	fstream f0("book.txt", ios::in);
@@ -235,11 +237,12 @@ void book::Display_all_book(){
 	f.read_list_book(list, size);
 //	cout << "\nALL LIST BOOK\n";
 	cout << "-------------------------------------------------ALL LIST BOOK-------------------------------------------------\n";
-	cout << setw(6) << left << "ID" << setw(50) << left << "TITLE" << setw(40) << left << "AUTHOR" << setw(7) << left << "NUMBER" << endl;
+	cout << setw(10) << left << "ID" << setw(45) << left << "TITLE" << setw(40) << left << "AUTHOR" << setw(7) << left << "NUMBER" << endl;
 	cout << "---------------------------------------------------------------------------------------------------------" << endl;
 	for (int i = 0; i < size; i++){
-		cout << setw(6) << left << list[i].Get_book_id() << setw(50) << left << list[i].Get_title() << setw(40) << left << list[i].Get_author() << setw(7) << left << list[i].Get_num_of_book() << endl;
+		cout << setw(10) << left << list[i].Get_book_id() << setw(45) << left << list[i].Get_title() << setw(40) << left << list[i].Get_author() << setw(7) << left << list[i].Get_num_of_book() << endl;
 	}
+	cout << endl;
 //	system("pause>nul");
 }
 void book::Delete_book(){

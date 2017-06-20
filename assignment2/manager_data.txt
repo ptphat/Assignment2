@@ -1,1 +1,1 @@
-mngr;manager;manager;david beckham;1/1/1990;0122222222;
+manager;manager;manager;david beckham;1/1/1990;0122222222;

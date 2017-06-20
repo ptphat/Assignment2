@@ -12,7 +12,7 @@ public:
 	void user_menu();
 	void edit_profile();
 	void notification();
-	void accept(request_manager *rq, int size);
+//	void accept(request_manager *rq, int size);
 public:
 	manager();
 	~manager();

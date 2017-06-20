@@ -11,6 +11,72 @@ using namespace std;
 class independent_function
 {
 public:
+	string getid_rdr(int size){ // Ham tao ID tu dong
+		string ID, s = currentDateTime();
+		ID = ID + s[2] + s[3];
+		if (size >= 1000){
+			char ng = size / 1000 + 48;
+			char tr = (size % 1000) / 100 + 48;
+			char ch = (size % 100) / 10 + 48;
+			char dv = (size % 10) + 48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		else if (size < 1000 && size >= 100){
+			char ng = '0';
+			char tr = (size) / 100 + 48;
+			char ch = (size % 100) / 10 + 48;
+			char dv = (size % 10) + 48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		else if (size < 100 && size >= 10){
+			char ng = '0';
+			char tr = '0';
+			char ch = (size) / 10 + 48;
+			char dv = (size % 10) + 48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		else if (size < 10 && size >= 0){
+			char ng = '0';
+			char tr = '0';
+			char ch = '0';
+			char dv = (size)+48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		return ID;
+	}
+	string getid_book(int size){ // Ham tao ID tu dong
+		string ID, s = currentDateTime();
+		ID = ID + s[2] + s[3];
+		if (size >= 1000){
+			char ng = size / 1000 + 48;
+			char tr = (size % 1000) / 100 + 48;
+			char ch = (size % 100) / 10 + 48;
+			char dv = (size % 10) + 48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		else if (size < 1000 && size >= 100){
+			char ng = '0';
+			char tr = (size) / 100 + 48;
+			char ch = (size % 100) / 10 + 48;
+			char dv = (size % 10) + 48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		else if (size < 100 && size >= 10){
+			char ng = '0';
+			char tr = '0';
+			char ch = (size) / 10 + 48;
+			char dv = (size % 10) + 48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		else if (size < 10 && size >= 0){
+			char ng = '0';
+			char tr = '0';
+			char ch = '0';
+			char dv = (size)+48;
+			ID = ID + ng + tr + ch + dv;
+		}
+		return 'B'+ ID;
+	}
 	string getpass(){
 
 		char ch;

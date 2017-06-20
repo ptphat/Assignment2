@@ -61,11 +61,21 @@ void menu::signup_menu() {
 	if (verify == 0) {
 		cout << "Enter your password: ";
 		fflush(stdin);
-		getline(cin, pass);
+		pass = getpass();
 		while (verify_semicolon(pass) == 1) {
 			cout << "Your password mustn't content char \';\', please retype it: ";
 			fflush(stdin);
-			getline(cin, pass);
+			pass = getpass();
+		}
+		cout << "Confirm your password: ";
+		string pass_confirm;
+		fflush(stdin);
+		pass_confirm = getpass();
+		while (pass != pass_confirm){
+			cout << "Your password doesn't match, please retype it" << endl;
+			cout << "Confirm your password: ";
+			fflush(stdin);
+			pass_confirm = getpass();
 		}
 		cout << "Full name: ";
 		fflush(stdin); 
@@ -91,7 +101,8 @@ void menu::signup_menu() {
 			fflush(stdin);
 			getline(cin, phone);
 		}
-		user_write << size << ';' << currentDateTime() << ';' << username << ';' << pass << ';' << name << ';' << birthday << ';' << phone << ';' << endl;
+
+		user_write << getid_rdr(size) << ';' << currentDateTime() << ';' << username << ';' << pass << ';' << name << ';' << birthday << ';' << phone << ';' << endl;
 		user_write.close();
 		cout << "Successful !!!" << endl;
 		fstream ad_noti("admin_noti.txt", ios::out | ios::app); //Ghi vao file thong bao cua admin

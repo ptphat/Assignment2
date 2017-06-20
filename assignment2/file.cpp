@@ -150,6 +150,8 @@ void file::read_request(request_manager *arrrq, int size){
 		file >> arrrq[i].accept;
 		file.seekg(1, 1);
 		file >> arrrq[i].borow;
+		file.seekg(1, 1);
+		file >> arrrq[i].give_back;
 		getline(file, st);
 	}
 	file.close();
@@ -159,7 +161,7 @@ void file::write_request(request_manager *arrrq, int size){
 	string st;
 	file.seekg(0, 0);
 	for (int i = 0; i < size; i++){
-		file << arrrq[i].date << ';' << arrrq[i].usrname << ';' << arrrq[i].title << ';' << arrrq[i].quantity << ';' << arrrq[i].accept << ';' << arrrq[i].borow << ';' << endl;
+		file << arrrq[i].date << ';' << arrrq[i].usrname << ';' << arrrq[i].title << ';' << arrrq[i].quantity << ';' << arrrq[i].accept << ';' << arrrq[i].borow << ';' << arrrq[i].give_back << ';' << endl;
 	}
 	file.close();
 }

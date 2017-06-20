@@ -13,6 +13,8 @@ public:
 	int accept;
 	//Xac thuc da di muon 0: da muon, 1: Chua di muon 
 	int borow;
+	// Xac thu da tra 0: da tra; 1: chua tra
+	int give_back;
 	
 };
 

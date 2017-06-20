@@ -96,9 +96,8 @@ void manager::user_menu() {
 			num_of_noti++;
 		}
 	}
-	delete[] rm;
 	cout << "------------------------LIBRO (MANAGER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Notification(" << num_of_noti << ")" << endl << "3. Modify book"<<endl<<"4. Add or remove book" <<endl<<"5. View book's list"<< endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Notification (" << num_of_noti << ")" << endl << "3. Modify book" << endl << "4. Verify" << endl << "5. Add or remove book" << endl << "6. View book's list" << endl << "0. Log out" << endl;
 	int choice;
 	book b;
 	fflush(stdin);
@@ -121,7 +120,56 @@ void manager::user_menu() {
 				}
 
 	} break;
-	case 4: {
+	case 4:{
+			   cout << "---------------------------Verify-------------------------" << endl;
+			   cout << "1. Verify user borrow book(s) completely" << endl;
+			   cout << "2. Verify user pay book(s) completely" << endl;
+			   cout << "0. Back" << endl;
+			   int choice;
+			   fflush(stdin);
+			   choice = getchoice(0, 2);
+			   switch (choice){
+			   case 0: user_menu(); break;
+			   case 1:{
+						  cout << "-----Verify user borrow book(s) completely-----" << endl;
+						  string usr, title;
+						  int quantity;
+						  fflush(stdin);
+						  cout << "Enter this user: "; getline(cin, usr);
+						  fflush(stdin);
+						  cout << "Enter title: "; getline(cin, title);
+						  cout << "Enter quantity: "; cin >> quantity;
+						  for (int i = 0; i < size; i++){
+							  if (usr == rm[i].usrname && title == rm[i].title && quantity == rm[i].quantity){
+								  rm[i].borow = 0;
+								  break;
+							  }
+						  }
+						  f.write_request(rm, size);
+
+			   }
+				   break;
+			   case 2:{
+						  cout << "-----Verify user pay book(s) completely----" << endl;
+						  string usr, title;
+						  int quantity;
+						  fflush(stdin);
+						  cout << "Enter this user: "; getline(cin, usr);
+						  fflush(stdin);
+						  cout << "Enter title: "; getline(cin, title);
+						  cout << "Enter quantity: "; cin >> quantity;
+						  for (int i = 0; i < size; i++){
+							  if (usr == rm[i].usrname && title == rm[i].title && quantity == rm[i].quantity && rm[i].borow==0 ){
+								  rm[i].give_back = 0;
+							  }
+						  }
+						  f.write_request(rm, size);
+			   }
+				   break;
+			   } 
+	}
+		break;
+	case 5: {
 				system("cls");
 				cout << "-----------------------------------------------------------" << endl;
 				cout << "1. Add book" << endl << "2. Remove book" << endl << "0. Back" << endl;
@@ -143,7 +191,8 @@ void manager::user_menu() {
 					break;
 				}
 	}
-	case 5:{
+		break;
+	case 6:{
 			   b.Display_all_book();
 			   system("pause");
 			   user_menu();
@@ -151,6 +200,7 @@ void manager::user_menu() {
 	default:
 		break;
 	}
+	delete[] rm;
 }
 void manager::edit_profile() {
 	fstream read_data("manager_data.txt", ios::in);

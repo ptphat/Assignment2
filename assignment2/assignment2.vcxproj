@@ -44,6 +44,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{623B8C7F-6E8B-4BE4-96A8-D529374D6708}</ProjectGuid>
