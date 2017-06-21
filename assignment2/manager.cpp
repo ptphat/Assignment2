@@ -8,24 +8,14 @@ void manager::sign_in(){
 	system("cls");
 //	cin.ignore();
 	cout << "-------------------------SIGN IN (as manager)----------------------" << endl;
+	file f;
 	int size = 0;
 	string username, pass, st;
 	fstream manager_read("manager_data.txt", ios::in | ios::out);
-	while (getline(manager_read, st)) { size++; }
+	size = f.size(manager_read);
 	cout << "Number of account: " << size << endl;
 	account *arrayaccount = new account[size];
-	manager_read.clear();
-	manager_read.seekg(0, 0);
-	for (int i = 0; i < size; i++) {
-		getline(manager_read, st, ';');
-		arrayaccount[i].set_id(st);
-		getline(manager_read, st, ';');
-		arrayaccount[i].set_username(st);
-		getline(manager_read, st, ';');
-		arrayaccount[i].set_password(st);
-		getline(manager_read, st);
-	}
-	manager_read.close();
+	f.read_manager(arrayaccount, size);
 
 	cout << "Enter your username: ";
 	fflush(stdin);
@@ -96,12 +86,12 @@ void manager::user_menu() {
 			num_of_noti++;
 		}
 	}
-	cout << "------------------------LIBRO (MANAGER)------------------------" << endl;
-	cout << "1. Edit profile" << endl << "2. Notification (" << num_of_noti << ")" << endl << "3. Modify book" << endl << "4. Verify" << endl << "5. Add or remove book" << endl << "6. View book's list" << endl << "0. Log out" << endl;
+	cout << "------------------------LIBRO (manager)------------------------" << endl;
+	cout << "1. Edit profile" << endl << "2. Notification (" << num_of_noti << ")" << endl << "3. Modify book" << endl << "4. Verify" << endl << "5. Add or remove book" << endl << "6. View book's list"<<endl<<"7. Search book" << endl << "0. Log out" << endl;
 	int choice;
 	book b;
 	fflush(stdin);
-	choice = getchoice(0, 5);
+	choice = getchoice(0, 7);
 	switch (choice)
 	{
 	case 0: {menu m; m.mainmenu(); }break;
@@ -122,8 +112,8 @@ void manager::user_menu() {
 	} break;
 	case 4:{
 			   cout << "---------------------------Verify-------------------------" << endl;
-			   cout << "1. Verify user borrow book(s) completely" << endl;
-			   cout << "2. Verify user pay book(s) completely" << endl;
+			   cout << "1. Verify user borrows book(s) completely" << endl;
+			   cout << "2. Verify user gives book(s) back completely" << endl;
 			   cout << "0. Back" << endl;
 			   int choice;
 			   fflush(stdin);
@@ -140,17 +130,17 @@ void manager::user_menu() {
 						  cout << "Enter title: "; getline(cin, title);
 						  cout << "Enter quantity: "; cin >> quantity;
 						  for (int i = 0; i < size; i++){
-							  if (usr == rm[i].usrname && title == rm[i].title && quantity == rm[i].quantity){
+							  if (usr == rm[i].usrname && title == rm[i].title && quantity == rm[i].quantity && rm[i].accept==0){
 								  rm[i].borow = 0;
 								  break;
 							  }
 						  }
 						  f.write_request(rm, size);
-
+						  user_menu();
 			   }
 				   break;
 			   case 2:{
-						  cout << "-----Verify user pay book(s) completely----" << endl;
+						  cout << "-----Verify user give book(s) back completely----" << endl;
 						  string usr, title;
 						  int quantity;
 						  fflush(stdin);
@@ -161,9 +151,23 @@ void manager::user_menu() {
 						  for (int i = 0; i < size; i++){
 							  if (usr == rm[i].usrname && title == rm[i].title && quantity == rm[i].quantity && rm[i].borow==0 ){
 								  rm[i].give_back = 0;
+								  fstream bk("book.txt", ios::in | ios::out);
+								  int size = f.size(bk);
+								  bk.close();
+								  book *b=new book[size];
+								  f.read_book(b, size);
+								  for (int i = 0; i < size; i++){
+									  if (b[i].title == title){
+										  b[i].num += rm[i].quantity;
+										  break;
+									  }
+								  }
+								  f.write_list_book(b, size);
+								  break;
 							  }
 						  }
 						  f.write_request(rm, size);
+						  user_menu();
 			   }
 				   break;
 			   } 
@@ -194,9 +198,18 @@ void manager::user_menu() {
 		break;
 	case 6:{
 			   b.Display_all_book();
-			   system("pause");
+			   system("pause>nul");
 			   user_menu();
 	}
+		break;
+	case 7:{
+			   book b;
+			   b.Display_all_book();
+			   b.Find_book();
+			   system("pause>nul");
+			   user_menu();
+	}
+		break;
 	default:
 		break;
 	}
@@ -226,7 +239,9 @@ void manager::edit_profile() {
 	switch (choice)
 	{
 	case 0: {user_menu(); } break;
-	case 1: {cout << "Sorry, you can't change your username, press any key to return" << endl;
+	case 1: {
+				cout << endl;
+				cout << "Sorry, you can't change your username, press any key to return" << endl;
 		system("pause>nul");
 		edit_profile();
 	} break;
@@ -311,14 +326,14 @@ void manager::edit_profile() {
 	case 5: {
 				system("cls");
 				cout << "----------------CHANGE PHONE---------------------" << endl;
-				cout << "Your current birthday: " << a[position].get_phone() << endl;
-				cout << "Enter new birthday: ";
+				cout << "Your current phone: " << a[position].get_phone() << endl;
+				cout << "Enter new phone: ";
 				string newphone;
 				fflush(stdin);
 				getline(cin, newphone);
 				menu m;
 				while (m.verify_semicolon(newphone) == 1) {
-					cout << "Your birthday mustn't content char \';\', retype it: ";
+					cout << "Your phone mustn't content char \';\', retype it: ";
 					fflush(stdin);
 					getline(cin, newphone);
 				}
@@ -347,13 +362,13 @@ void manager::notification(){
 	f.read_request(rm, size);
 	int *p = new int[size];
 	bool exist = false; //Kiểm tra sự tồn tại của các thông báo
-	cout << "----------------------NOTIFICATION---------------------" << endl;
+	cout << "----------------------------NOTIFICATION--------------------------" << endl;
 	int j = 0; // Bien danh so thu tu notification
 	for (int i = 0; i < size; i++){
 		if (rm[i].accept == 1){
 			j++;
 			p[j] = i;
-			cout << j << ". User \"" << rm[i].usrname << "\" want to borrow " << rm[i].quantity << " book(s) named \"" << rm[i].title << "\" on: " << rm[i].date << endl;
+			cout << j << ". User \"" << rm[i].usrname << "\" wants to borrow " << rm[i].quantity << " book(s) named \"" << rm[i].title << "\" on: " << rm[i].date << endl;
 			exist = true;
 		}
 	}

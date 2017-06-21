@@ -9,23 +9,13 @@ void admin::sign_in(){
 //	cin.ignore();
 	cout << "-------------------------SIGN IN (as ADMIN)----------------------" << endl;
 	int size = 0;
+	file f;
 	string username, pass, st;
 	fstream admin_read("admin_data.txt", ios::in | ios::out);
-	while (getline(admin_read, st)) { size++; }
+	size = f.size(admin_read);
 	cout << "Number of account: " << size << endl;
 	account *arrayaccount = new account[size];
-	admin_read.clear();
-	admin_read.seekg(0, 0);
-	for (int i = 0; i < size; i++) {
-		getline(admin_read, st, ';');
-		arrayaccount[i].set_id(st);
-		getline(admin_read, st, ';');
-		arrayaccount[i].set_username(st);
-		getline(admin_read, st, ';');
-		arrayaccount[i].set_password(st);
-		getline(admin_read, st);
-	}
-	admin_read.close();
+	f.read_admin(arrayaccount, size);
 
 	cout << "Enter your username: ";
 	fflush(stdin);
@@ -86,7 +76,7 @@ void admin::user_menu() {
 	system("cls");
 	file f;
 	cout << "------------------------LIBRO (admin)------------------------" << endl;
-	cout << "1. Edit profile"<<endl<<"2. Display all reader" << endl << "3. Add/block reader" << endl << "4. Search book" << endl << "5. Notification"<<endl<<"6. View book's list" << endl << "0. Log out" << endl;
+	cout << "1. Edit profile" << endl << "2. Display all reader" << endl << "3. Add/Active/Block reader" << endl << "4. Search book" << endl << "5. Notification" << endl << "6. View book's list" << endl << "0. Log out" << endl;
 	int choice;
 	fflush(stdin);
 	choice = getchoice(0, 6);
@@ -181,16 +171,8 @@ void admin::user_menu() {
 				book b;
 				b.Display_all_book();
 				b.Find_book();
-				int choice;
-				cout << "Would you like to find again?" << endl;
-				cout << "1. Yes" << endl;
-				cout << "2. No" << endl;
-				fflush(stdin);
-				choice = getchoice(1, 2);
-				switch (choice){
-				case 1: b.Find_book(); break;
-				case 2: user_menu(); break;
-				}
+				system("pause>nul");
+				user_menu();
 	}
 		break;
 	case 5: {notification(); user_menu(); } break;
@@ -199,6 +181,7 @@ void admin::user_menu() {
 			   b.Delete_book();
 			   user_menu();
 	}
+		break;
 	default:
 		break;
 	}
@@ -225,9 +208,11 @@ void admin::edit_profile() {
 	switch (choice)
 	{
 	case 0: {user_menu(); } break;
-	case 1: {cout << "Sorry, you can't change your username, press any key to return" << endl;
-		system("pause>nul");
-		edit_profile();
+	case 1: {
+				cout << endl;
+				cout << "Sorry, you can't change your username, press any key to return" << endl;
+				system("pause>nul");
+				edit_profile();
 	} break;
 	case 2: {
 				system("cls");
@@ -235,20 +220,20 @@ void admin::edit_profile() {
 				cout << "Current password: ";
 				string pass, newpass;
 				fflush(stdin);
-				getline(cin, pass);
+				pass = getpass();
 				while (pass != a[position].get_password()) {
 					cout << "Invalid password" << endl << "Enter your current password again: ";
 					fflush(stdin);
-					cin >> pass;
+					pass = getpass();
 				}
 				cout << "Enter new password: ";
 				fflush(stdin);
-				getline(cin, newpass);
+				newpass = getpass();
 				menu m;
 				while (m.verify_semicolon(newpass) == 1) {
 					cout << "Your password word mustn't content char \';\', retype it: ";
 					fflush(stdin);
-					getline(cin, newpass);
+					newpass = getpass();
 				}
 				if (m.verify_semicolon(newpass) == 0) {
 					a[position].set_password(newpass);
@@ -261,7 +246,7 @@ void admin::edit_profile() {
 	} break;
 	case 3: {
 				system("cls");
-				cout << "----------------CHANGE YOUR NAME---------------------";
+				cout << "----------------CHANGE YOUR NAME---------------------"<<endl;
 				cout << "Your current name: " << a[position].get_name() << endl;
 				cout << "Enter your new name: ";
 				string newname;
@@ -285,7 +270,7 @@ void admin::edit_profile() {
 		break;
 	case 4: {
 				system("cls");
-				cout << "----------------CHANGE BIRTHDAY---------------------";
+				cout << "----------------CHANGE BIRTHDAY---------------------"<<endl;
 				cout << "Your current birthday: " << a[position].get_birthday() << endl;
 				cout << "Enter new birthday: ";
 				string newbirth;
@@ -309,15 +294,15 @@ void admin::edit_profile() {
 		break;
 	case 5: {
 				system("cls");
-				cout << "----------------CHANGE PHONE---------------------";
-				cout << "Your current birthday: " << a[position].get_phone() << endl;
-				cout << "Enter new birthday: ";
+				cout << "----------------CHANGE PHONE---------------------"<<endl;
+				cout << "Your current phone: " << a[position].get_phone() << endl;
+				cout << "Enter new phone: ";
 				string newphone;
 				fflush(stdin);
 				getline(cin, newphone);
 				menu m;
 				while (m.verify_semicolon(newphone) == 1) {
-					cout << "Your birthday mustn't content char \';\', retype it: ";
+					cout << "Your phone mustn't content char \';\', retype it: ";
 					fflush(stdin);
 					getline(cin, newphone);
 				}
@@ -351,7 +336,7 @@ void admin::notification(){
 			getline(ad_noti, line[i]);
 		}
 	}
-	for (int i = size - 1; i>=0; i--){
+	for (int i = size - 1; i >= 0; i--){
 		cout << line[i] << endl;
 	}
 	ad_noti.close();

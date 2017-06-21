@@ -102,7 +102,7 @@ void menu::signup_menu() {
 			getline(cin, phone);
 		}
 
-		user_write << getid_rdr(size) << ';' << currentDateTime() << ';' << username << ';' << pass << ';' << name << ';' << birthday << ';' << phone << ';' << endl;
+		user_write << getid_rdr(size) << ';' << currentDateTime() << ';' << username << ';' << pass << ';' << name << ';' << birthday << ';' << phone << ';' << "1" << ';' << endl;
 		user_write.close();
 		cout << "Successful !!!" << endl;
 		fstream ad_noti("admin_noti.txt", ios::out | ios::app); //Ghi vao file thong bao cua admin
@@ -119,7 +119,7 @@ void menu::mainmenu() {
 	system("cls"); 
 	file f;
 	cout << "-------------- LIBRO (designed by 4Duck) --------------" << endl;
-	cout << setw(17) << "" << "https://github.com/ptphat/assignment2" << endl << endl;
+	cout << setw(17) << "" << "https://github.com/ptphat/assignment2" << endl;
 	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "0. Exit" << endl;
 	int choice = 0;
 	fflush(stdin);

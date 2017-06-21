@@ -1,1 +1,1 @@
-manager;manager;manager;david beckham;1/1/1990;0122222222;
+manager;2017/6/6;manager;manager;david beckham;1/1/1990;0122222222;1;

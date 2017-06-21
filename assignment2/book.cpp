@@ -203,7 +203,7 @@ bool book::Find_book(){
 	string s;
 
 	bool found = false;
-	cout << "\n-Enter the book you want to find: ";
+	cout << "\nEnter the book you want to find: ";
 	fflush(stdin);
 	getline(cin, s);
 	for (int i = 0; i < size; i++){
@@ -215,7 +215,8 @@ bool book::Find_book(){
 	}
 	if (!found){
 		cout << "\nNot found!";
-		Sleep(1000);
+	//	Sleep(1000);
+	
 	}
 	return found;
 }

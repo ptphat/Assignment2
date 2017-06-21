@@ -20,17 +20,10 @@ void reader::user_menu() {
 				book b; 
 				b.Display_all_book(); 
 				b.Find_book(); 
-				int choice;
-				cout << "Would you like to find again?"<<endl;
-				cout << "1. Yes" << endl;
-				cout << "2. No" << endl;
-				fflush(stdin);
-				choice = getchoice(1, 2);
-				switch (choice){
-				case 1: b.Find_book(); break;
-				case 2: user_menu(); break;
-				}
+				system("pause>nul");
+				user_menu();
 	}
+		break;
 	case 5:{
 			   book b;
 			   b.Display_all_book();
@@ -48,42 +41,15 @@ void reader::sign_in() {
 //	cin.ignore();
 	cout << "----------------------SIGN IN (as reader)----------------------" << endl;
 	int size = 0;
+	file f;
 	string username, pass, st;
 	bool s;
 	fstream reader_read("reader_data.txt", ios::in | ios::out);
-	while (getline(reader_read, st)) { size++; }
+	size = f.size(reader_read);
 	cout << "Number of account: " << size << endl;
 	account *arrayaccount = new account[size];
-	reader_read.clear();
-	reader_read.seekg(0, 0);
-	for (int i = 0; i < size; i++) {
-		fflush(stdin);
-		getline(reader_read, st, ';');
-		arrayaccount[i].set_id(st);
-		fflush(stdin);
-		getline(reader_read, st, ';');
-		arrayaccount[i].set_date(st);
-		fflush(stdin);
-		getline(reader_read, st, ';');
-		arrayaccount[i].set_username(st);
-		fflush(stdin);
-		getline(reader_read, st, ';');
-		arrayaccount[i].set_password(st);
-		fflush(stdin);
-		getline(reader_read, st, ';');
-		arrayaccount[i].set_name(st);
-		fflush(stdin);
-		getline(reader_read, st, ';');
-		arrayaccount[i].set_birthday(st);
-		fflush(stdin);
-		getline(reader_read, st, ';');
-		arrayaccount[i].set_phone(st);
-		reader_read >> s;
-		arrayaccount[i].set_active(s);
-		getline(reader_read, st);
-	}
-	reader_read.close();
-	int position = size;
+	f.read_reader(arrayaccount, size);
+	int position = -1;
 	cout << "Enter your username: ";
 	fflush(stdin);
 	getline(cin, username);
@@ -269,14 +235,14 @@ void reader::edit_profile() {
 	case 5: {
 		system("cls");
 		cout << "----------------CHANGE PHONE---------------------" << endl;
-		cout << "Your current birthday: " << a[position].get_phone() << endl;
-		cout << "Enter new birthday: ";
+		cout << "Your current phone: " << a[position].get_phone() << endl;
+		cout << "Enter new phone: ";
 		string newphone;
 		fflush(stdin);
 		getline(cin, newphone);
 		menu m;
 		while (m.verify_semicolon(newphone) == 1) {
-			cout << "Your birthday mustn't content char \';\', retype it: ";
+			cout << "Your phone mustn't content char \';\', retype it: ";
 			fflush(stdin);
 			getline(cin, newphone);
 		}
@@ -380,10 +346,10 @@ void reader::notification(){
 			else if (arr[i].accept == 0) {
 				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been accepted." << endl;
 				cout << "You have 3 days to go to library and borrow this book." << endl;
-				cout << "If you don't, after 3 days your request will be cancel." << endl << endl;
+				cout << "If you don't, after 3 days your request will be canceled." << endl << endl;
 			}
 			else if (arr[i].accept == 2) {
-				cout << "Book request of " << arr[i].quantity << " \"" << arr[i].title << "\" has been denied." << endl << endl;
+				cout << "Book request " << arr[i].quantity << " of \"" << arr[i].title << "\" has been denied." << endl << endl;
 			}
 			else if (arr[i].accept == 1) {
 				cout << "You have requested " << arr[i].quantity << " book(s) named \"" << arr[i].title << "\"." << endl << endl;

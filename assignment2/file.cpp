@@ -54,10 +54,14 @@ void file::write_reader( account *arryacc, int size) {
 void file::read_manager(account *arrayacc, int size) {
 	fstream file("manager_data.txt", ios::in | ios::out);
 	string st;
+	bool s;
 	for (int i = 0; i < size; i++) {
 		fflush(stdin);
 		getline(file, st, ';');
 		arrayacc[i].set_id(st);
+		fflush(stdin);
+		getline(file, st, ';');
+		arrayacc[i].set_date(st);
 		fflush(stdin);
 		getline(file, st, ';');
 		arrayacc[i].set_username(st);
@@ -73,7 +77,8 @@ void file::read_manager(account *arrayacc, int size) {
 		fflush(stdin);
 		getline(file, st, ';');
 		arrayacc[i].set_phone(st);
-		fflush(stdin);
+		file >> s;
+		arrayacc[i].set_active(s);
 		getline(file, st);
 	}
 	file.close();
@@ -81,17 +86,21 @@ void file::read_manager(account *arrayacc, int size) {
 void file::write_manager(account *arryacc, int size) {
 	fstream file("manager_data.txt", ios::in | ios::out);
 	for (int i = 0; i < size; i++) {
-		file << arryacc[i].get_id() << ";" << arryacc[i].get_username() << ";" << arryacc[i].get_password() << ";" << arryacc[i].get_name() << ";" << arryacc[i].get_birthday() << ";" << arryacc[i].get_phone() << ";" << endl;
+		file << arryacc[i].get_id() << ';' << arryacc[i].get_date() << ';' << arryacc[i].get_username() << ';' << arryacc[i].get_password() << ';' << arryacc[i].get_name() << ';' << arryacc[i].get_birthday() << ';' << arryacc[i].get_phone() << ';' << arryacc[i].get_active() << ';' << endl;
 	}
 	file.close();
 }
 void file::read_admin(account *arrayacc, int size) {
 	fstream file("admin_data.txt", ios::in | ios::out);
 	string st;
+	bool s;
 	for (int i = 0; i < size; i++) {
 		fflush(stdin);
 		getline(file, st, ';');
 		arrayacc[i].set_id(st);
+		fflush(stdin);
+		getline(file, st, ';');
+		arrayacc[i].set_date(st);
 		fflush(stdin);
 		getline(file, st, ';');
 		arrayacc[i].set_username(st);
@@ -107,7 +116,8 @@ void file::read_admin(account *arrayacc, int size) {
 		fflush(stdin);
 		getline(file, st, ';');
 		arrayacc[i].set_phone(st);
-		fflush(stdin);
+		file >> s;
+		arrayacc[i].set_active(s);
 		getline(file, st);
 	}
 	file.close();
@@ -115,7 +125,7 @@ void file::read_admin(account *arrayacc, int size) {
 void file::write_admin(account *arryacc, int size) {
 	fstream file("admin_data.txt", ios::in | ios::out);
 	for (int i = 0; i < size; i++) {
-		file << arryacc[i].get_id() << ";" << arryacc[i].get_username() << ";" << arryacc[i].get_password() << ";" << arryacc[i].get_name() << ";" << arryacc[i].get_birthday() << ";" << arryacc[i].get_phone() << ";" << endl;
+		file << arryacc[i].get_id() << ';' << arryacc[i].get_date() << ';' << arryacc[i].get_username() << ';' << arryacc[i].get_password() << ';' << arryacc[i].get_name() << ';' << arryacc[i].get_birthday() << ';' << arryacc[i].get_phone() << ';' << arryacc[i].get_active() << ';' << endl;
 	}
 	file.close();
 }
@@ -167,6 +177,7 @@ void file::write_request(request_manager *arrrq, int size){
 	}
 	file.close();
 }
+// Ham duoi tuong duong ham read_book()
 void file::read_list_book(book* list, int size)
 {
 	fstream f0("book.txt", ios::in);
