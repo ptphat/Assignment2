@@ -24,7 +24,7 @@ void manager::sign_in(){
 	fflush(stdin);
 	pass = getpass();
 	//	fflush(stdin);
-	int verify = 0;
+	int verify = 2;
 	for (int i = 0; i < size; i++) {
 		if (username == arrayaccount[i].get_username()) {
 			if (pass == arrayaccount[i].get_password()) {
@@ -162,7 +162,7 @@ void manager::user_menu() {
 										  break;
 									  }
 								  }
-								  f.write_list_book(b, size);
+								  f.write_book(b, size);
 								  break;
 							  }
 						  }
@@ -252,7 +252,14 @@ void manager::edit_profile() {
 				string pass, newpass;
 				fflush(stdin);
 				pass = getpass();
+				unsigned int numOfwrong = 0;
 				while (pass != a[position].get_password()) {
+					numOfwrong++;
+					if (numOfwrong > 2){
+						cout << "\nYou entered more than 3 times incorrectly!.\nExit in 3 second ...";
+						Sleep(3000);
+						edit_profile();
+					}
 					cout << "Invalid password" << endl << "Enter your current password again: ";
 					fflush(stdin);
 					pass = getpass();
@@ -362,7 +369,7 @@ void manager::notification(){
 	f.read_request(rm, size);
 	int *p = new int[size];
 	bool exist = false; //Kiểm tra sự tồn tại của các thông báo
-	cout << "----------------------------NOTIFICATION--------------------------" << endl;
+	cout << "---------------------------------NOTIFICATION-------------------------------" << endl;
 	int j = 0; // Bien danh so thu tu notification
 	for (int i = 0; i < size; i++){
 		if (rm[i].accept == 1){
@@ -382,34 +389,46 @@ void manager::notification(){
 		cout << "-------------------------------------------------------------------------" << endl;
 		cout << "1. Accept request" << endl << "2. Deny request" << endl << "0. Back" << endl;
 		int choice;
-		do {
-			cout << "Enter your choice: ";
+		cout << "Enter your choice: ";
+		cin >> choice;
+		while (choice<0 || choice>2 || cin.fail()){
+			cout << "Please retype: ";
+			cin.clear();
+			cin.ignore(1000, '\n');
 			cin >> choice;
-		} while (choice<0 || choice>2);
+		} 
 		switch (choice){
 		case 0: user_menu(); break;
 		case 1: {
 					int choice;
-					do{
-						cout << "Choose which request you want to accept: ";
-						fflush(stdin);
+					cin.clear();
+					cin.ignore(1000, '\n');
+					cout << "Choose which request you want to accept: ";
+					cin >> choice;
+					while (choice <1 || choice >j || cin.fail()){
+						cout << "Please retype: ";
+						cin.clear();
+						cin.ignore(1000, '\n');
 						cin >> choice;
-					} while (choice <1 || choice >j);
+					}
 					rm[p[choice]].accept = 0; //Yeu cau duoc chap nhan
 					file f;
 					f.write_request(rm, size);
 					delete[] rm;
-					cout << "Success!!!" << endl;
-					system("pause>nul");
+					cout << "------------ Successful ------------" << endl;
+					Sleep(1000);
 					notification();
 		}
 		case 2:{
 				   int choice;
-				   do{
-					   cout << "Choose which request you want to deny: ";
-					   fflush(stdin);
+				   cout << "Choose which request you want to deny: ";
+				   cin >> choice;
+				   while (choice <1 || choice >j || cin.fail()){
+					   cout << "Please retype: ";
+					   cin.clear();
+					   cin.ignore(1000, '\n');
 					   cin >> choice;
-				   } while (choice <1 || choice >j);
+				   }
 				   rm[p[choice]].accept = 2; //Yeu cau khong duoc chap nhan
 				   f.write_request(rm, size);
 				   file f;
@@ -424,11 +443,11 @@ void manager::notification(){
 						   b[i].num += rm[p[choice]].quantity;
 					   }
 				   }
-				   f.write_list_book(b, _size);
+				   f.write_book(b, _size);
 				   delete[] rm;
 				   delete[] p;
-				   cout << "Success!!!" << endl;
-				   system("pause>nul");
+				   cout << "------------ Successful ------------" << endl;
+				   Sleep(1000);
 				   notification();
 		}
 		}

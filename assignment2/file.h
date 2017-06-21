@@ -16,7 +16,6 @@ public:
 	void read_book(book *arraybk, int size);
 	void read_request(request_manager *arrrq, int size);
 	void write_request(request_manager *arrrq, int size);
-	void read_list_book(book*, int);
-	void write_list_book(book*, int);
+	void write_book(book*, int);
 };
 

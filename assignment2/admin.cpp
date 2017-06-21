@@ -24,7 +24,7 @@ void admin::sign_in(){
 	fflush(stdin);
 	pass = getpass();
 	//	fflush(stdin);
-	int verify = 0;
+	int verify = 2;
 	for (int i = 0; i < size; i++) {
 		if (username == arrayaccount[i].get_username()) {
 			if (pass == arrayaccount[i].get_password()) {
@@ -178,7 +178,8 @@ void admin::user_menu() {
 	case 5: {notification(); user_menu(); } break;
 	case 6:{
 			   book b;
-			   b.Delete_book();
+			   b.Display_all_book();
+			   system("pause>nul");
 			   user_menu();
 	}
 		break;
@@ -221,7 +222,14 @@ void admin::edit_profile() {
 				string pass, newpass;
 				fflush(stdin);
 				pass = getpass();
+				unsigned int numOfwrong = 0;
 				while (pass != a[position].get_password()) {
+					numOfwrong++;
+					if (numOfwrong > 2){
+						cout << "\nYou entered more than 3 times incorrectly!.\nExit in 3 second ...";
+						Sleep(3000);
+						edit_profile();
+					}
 					cout << "Invalid password" << endl << "Enter your current password again: ";
 					fflush(stdin);
 					pass = getpass();

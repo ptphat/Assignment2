@@ -178,29 +178,29 @@ void file::write_request(request_manager *arrrq, int size){
 	file.close();
 }
 // Ham duoi tuong duong ham read_book()
-void file::read_list_book(book* list, int size)
-{
-	fstream f0("book.txt", ios::in);
-	string s;
-	for (int i = 0; i < size; i++){
-		getline(f0, s, ';');
-		list[i].Set_id(s);
-		getline(f0, s, ';');
-		list[i].Set_title(s);
-		getline(f0, s, ';');
-		list[i].Set_author(s);
-		getline(f0, s, ';');
-		list[i].Set_date(s);
-		int x;
-		f0 >> x;
-		list[i].Set_num_of_book(x);
-		getline(f0, s, ';');
-		getline(f0, s);
-		list[i].Set_describe(s);
-	}
-	f0.close();
-}
-void file::write_list_book(book* list, int size)
+//void file::read_list_book(book* list, int size)
+//{
+//	fstream f0("book.txt", ios::in);
+//	string s;
+//	for (int i = 0; i < size; i++){
+//		getline(f0, s, ';');
+//		list[i].Set_id(s);
+//		getline(f0, s, ';');
+//		list[i].Set_title(s);
+//		getline(f0, s, ';');
+//		list[i].Set_author(s);
+//		getline(f0, s, ';');
+//		list[i].Set_date(s);
+//		int x;
+//		f0 >> x;
+//		list[i].Set_num_of_book(x);
+//		getline(f0, s, ';');
+//		getline(f0, s);
+//		list[i].Set_describe(s);
+//	}
+//	f0.close();
+//}
+void file::write_book(book* list, int size)
 {
 	fstream file("book.txt", ios::trunc | ios::out);
 	for (int i = 0; i < size; i++) {

@@ -5,7 +5,7 @@
 #include"file.h"
 void reader::user_menu() {
 	system("cls");
-	cout << "------------------------LIBRO (USER)------------------------" << endl;
+	cout << "------------------------ LIBRO (USER) ------------------------" << endl;
 	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification"<<endl<<"4. Search book"<<endl<<"5. View list's book" << endl << "0. Log out" << endl;
 	int choice;
 	fflush(stdin);
@@ -39,7 +39,7 @@ void reader::sign_in() {
 	m.loading();
 	system("cls");
 //	cin.ignore();
-	cout << "----------------------SIGN IN (as reader)----------------------" << endl;
+	cout << "---------------------- SIGN IN (as reader) ----------------------" << endl;
 	int size = 0;
 	file f;
 	string username, pass, st;
@@ -49,7 +49,7 @@ void reader::sign_in() {
 	cout << "Number of account: " << size << endl;
 	account *arrayaccount = new account[size];
 	f.read_reader(arrayaccount, size);
-	int position = -1;
+	int position = 2;
 	cout << "Enter your username: ";
 	fflush(stdin);
 	getline(cin, username);
@@ -143,7 +143,7 @@ void reader::edit_profile() {
 		}
 	}
 	system("cls");
-	cout << "Kind of informaion you want to change: " << endl << "1. User name" << endl << "2. Password" << endl << "3. Full name" << endl << "4. Birthday" << endl << "5. Phone number" << endl << "0. Back"<<endl;
+	cout << "Kind of information you want to change: " << endl << "1. User name" << endl << "2. Password" << endl << "3. Full name" << endl << "4. Birthday" << endl << "5. Phone number" << endl << "0. Back"<<endl;
 	int choice = 0;
 	fflush(stdin);
 	choice = getchoice(0, 5);
@@ -161,7 +161,14 @@ void reader::edit_profile() {
 		string pass, newpass;
 		fflush(stdin);
 		pass = getpass();
+		unsigned int numOfwrong = 0;
 		while (pass != a[position].get_password()) {
+			numOfwrong++;
+			if (numOfwrong > 2){
+				cout << "\nYou entered more than 3 times incorrectly!.\nExit in 3 second ...";
+				Sleep(3000);
+				edit_profile();
+			}
 			cout << "Invalid password" << endl << "Enter your current password again: ";
 			fflush(stdin);
 			pass = getpass();
@@ -186,7 +193,7 @@ void reader::edit_profile() {
 	} break;
 	case 3: {
 		system("cls");
-		cout << "----------------CHANGE YOUR NAME---------------------" << endl;
+		cout << "---------------- CHANGE YOUR NAME ---------------------" << endl;
 		cout << "Your current name: " << a[position].get_name() << endl;
 		cout << "Enter your new name: ";
 		string newname;
@@ -210,7 +217,7 @@ void reader::edit_profile() {
 			break;
 	case 4: {
 		system("cls");
-		cout << "----------------CHANGE BIRTHDAY---------------------"<<endl;
+		cout << "---------------- CHANGE BIRTHDAY ---------------------"<<endl;
 		cout << "Your current birthday: " << a[position].get_birthday() << endl;
 		cout << "Enter new birthday: ";
 		string newbirth;
@@ -234,7 +241,7 @@ void reader::edit_profile() {
 			break;
 	case 5: {
 		system("cls");
-		cout << "----------------CHANGE PHONE---------------------" << endl;
+		cout << "-------------------- CHANGE PHONE ---------------------" << endl;
 		cout << "Your current phone: " << a[position].get_phone() << endl;
 		cout << "Enter new phone: ";
 		string newphone;
@@ -263,7 +270,7 @@ void reader::edit_profile() {
 }
 void reader::bookrequest(){
 	system("cls");
-	cout << "-----------------------------------BOOK REQUEST---------------------------------" << endl;
+	cout << "----------------------------------- BOOK REQUEST --------------------------------------" << endl;
 	cout << "List book: " << endl;
 	file f;
 	fstream u("book.txt", ios::in | ios::out);
@@ -284,7 +291,7 @@ void reader::bookrequest(){
 	fflush(stdin);
 	getline(cin, id);
 	for (int i = 0; i < size; i++){
-		if (b[i].id == id){
+		if (b[i].Get_book_id() == id){
 			position = i;
 			break;
 		}
@@ -304,14 +311,19 @@ void reader::bookrequest(){
 		}
 	}
 	else {
+		b[position].Display_book_info();
 		int quantity;
-		do{
-			cout << left << setw(10) << b[position].id << setw(40) << b[position].title << setw(20) << b[position].author << setw(7) << b[position].num << endl;
-			cout << "How many book do you want: ";
+		cout << "\nHow many book do you want: ";
+		cin >> quantity;
+		while (quantity <1 || quantity > b[position].num || cin.fail()){
+			cout << "\nSorry! Please retype !!! ";
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "\nHow many book do you want: ";
 			cin >> quantity;
-		} while (quantity <0 || quantity > b[position].num);
+		}
 		b[position].num -= quantity;
-		f.write_list_book(b, size);
+		f.write_book(b, size);
 		fstream request("request.txt", ios::out | ios::app);
 		request << currentDateTime() << ';' << usrname_signed_in << ';' << b[position].title << ';' << quantity << ';' << "1" << ';' << "1" << ';' << "1" << ';' << endl;
 		// 1 chưa được accept ; 1 chưa đi mượn; 1: chua tra
@@ -324,7 +336,7 @@ void reader::bookrequest(){
 }
 void reader::notification(){
 	system("cls");
-	cout << "---------------------------NOTIFICATION---------------------------" << endl;
+	cout << "--------------------------- NOTIFICATION ---------------------------" << endl;
 	file f;
 	fstream rdr_data("request.txt", ios::in | ios::out);
 	int size;
@@ -358,7 +370,7 @@ void reader::notification(){
 		}	
 	}
 	if (exist == false){
-		cout << "Empty!!!";
+		cout << "Empty !!!";
 	}
 	system("pause>nul");
 	user_menu();

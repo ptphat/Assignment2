@@ -74,7 +74,7 @@ void book::Modify_book(){
 	int size = f.size(f0);
 	f0.close();
 	book *list = new book[size];
-	f.read_list_book(list, size);
+	f.read_book(list, size);
 
 	cout << "\n---------------- MIDIFY BOOK INFORMATION ----------------\n";
 
@@ -152,7 +152,7 @@ void book::Modify_book(){
 				}
 
 				// SAVE CHANGE TO FILE
-				f.write_list_book(list, size);
+				f.write_book(list, size);
 				cout << "\n---- Update successful -----";
 				Sleep(1500);
 				cout << "\nDo you want to modify again (y/n)?_";
@@ -199,7 +199,7 @@ bool book::Find_book(){
 	int size = f.size(f0);
 	f0.close();
 	book *list = new book[size];
-	f.read_list_book(list, size);
+	f.read_book(list, size);
 	string s;
 
 	bool found = false;
@@ -235,11 +235,11 @@ void book::Display_all_book(){
 	int size = f.size(f0);
 	f0.close();
 	book* list = new book[size];
-	f.read_list_book(list, size);
+	f.read_book(list, size);
 //	cout << "\nALL LIST BOOK\n";
-	cout << "-------------------------------------------------ALL LIST BOOK-------------------------------------------------\n";
+	cout << "\n--------------------------------------------ALL LIST BOOK---------------------------------------------\n";
 	cout << setw(10) << left << "ID" << setw(45) << left << "TITLE" << setw(40) << left << "AUTHOR" << setw(7) << left << "NUMBER" << endl;
-	cout << "---------------------------------------------------------------------------------------------------------" << endl;
+	cout << "------------------------------------------------------------------------------------------------------" << endl;
 	for (int i = 0; i < size; i++){
 		cout << setw(10) << left << list[i].Get_book_id() << setw(45) << left << list[i].Get_title() << setw(40) << left << list[i].Get_author() << setw(7) << left << list[i].Get_num_of_book() << endl;
 	}
@@ -253,7 +253,7 @@ void book::Delete_book(){
 	int size = f.size(f0);
 	f0.close();
 	book *list = new book[size];
-	f.read_list_book(list, size);
+	f.read_book(list, size);
 
 	cout << "\n---------------- DELETE BOOK ----------------\n";
 	cout << "\nEnter ID of book you want to delete ";
@@ -292,7 +292,7 @@ void book::Delete_book(){
 				delete[] list_temp;
 				list_temp = NULL;
 				// SAVE CHANGE TO FILE
-				f.write_list_book(list, size - 1);
+				f.write_book(list, size - 1);
 				cout << "\n---- Delete successful -----";
 				Sleep(1500);
 
