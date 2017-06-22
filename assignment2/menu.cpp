@@ -118,7 +118,7 @@ void menu::mainmenu() {
 	loading();
 	system("cls"); 
 	file f;
-	cout << "-------------- LIBRO (designed by 4Duck) --------------" << endl;
+	cout << "-------------- LIBPRO (designed by 4Duck) --------------" << endl;
 	cout << setw(17) << "" << "https://github.com/ptphat/assignment2" << endl;
 	cout << "1. Sign in" << endl << "2. Sign up" << endl << "3. Change color" << endl << "4. About" << endl << "0. Exit" << endl;
 	int choice = 0;
@@ -131,7 +131,7 @@ void menu::mainmenu() {
 	case 3: {loading(); change_theme_menu(); };	break;
 	case 4: {
 		system("cls");
-		cout << "LIBRO - Final" << endl;
+		cout << "LIBPRO - Final" << endl;
 		cout << "Cheking for update: No update is available" << endl;
 		cout << "Version: 2.2 (25, July, 2017)" << endl;
 		cout << "4Duck's Member:" << endl;

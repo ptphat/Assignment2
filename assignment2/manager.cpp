@@ -86,7 +86,7 @@ void manager::user_menu() {
 			num_of_noti++;
 		}
 	}
-	cout << "------------------------LIBRO (manager)------------------------" << endl;
+	cout << "------------------------LIBPRO (manager)------------------------" << endl;
 	cout << "1. Edit profile" << endl << "2. Notification (" << num_of_noti << ")" << endl << "3. Modify book" << endl << "4. Verify" << endl << "5. Add or remove book" << endl << "6. View book's list"<<endl<<"7. Search book" << endl << "0. Log out" << endl;
 	int choice;
 	book b;

@@ -5,7 +5,7 @@
 #include"file.h"
 void reader::user_menu() {
 	system("cls");
-	cout << "------------------------ LIBRO (USER) ------------------------" << endl;
+	cout << "------------------------ LIBPRO (USER) ------------------------" << endl;
 	cout << "1. Edit profile" << endl << "2. Book request" << endl << "3. Notification"<<endl<<"4. Search book"<<endl<<"5. View list's book" << endl << "0. Log out" << endl;
 	int choice;
 	fflush(stdin);
