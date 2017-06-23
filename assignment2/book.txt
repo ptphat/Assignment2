@@ -1,3 +1,4 @@
-B170000;C++;someone;2/3/2009;0;C cong cong;
-B170001;C#;anyone;2/5/2011;17;C thang;
-B170002;Digital;;5/3/2008;9;He thong so;
+B170000;Giao trinh vi dieu khien;Vu Duc Lung;2016;10;giao trinh vi dieu khien;
+B170001;Ly thuyet thong ke;Dang Duc Trong;2016;13;thong ke;
+B170002;Mien Dich Hoc;Tran Van Hieu;2016;3;Y hoc;
+B170003;Nguyen Duc Canh - tieu su;;2015;21;Chinh tri quoc gia;
