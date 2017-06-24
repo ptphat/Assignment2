@@ -6,7 +6,7 @@ void admin::sign_in(){
 	menu m;
 	m.loading();
 	system("cls");
-//	cin.ignore();
+	//	cin.ignore();
 	cout << "-------------------------SIGN IN (as ADMIN)----------------------" << endl;
 	int size = 0;
 	file f;
@@ -16,60 +16,62 @@ void admin::sign_in(){
 	cout << "Number of account: " << size << endl;
 	account *arrayaccount = new account[size];
 	f.read_admin(arrayaccount, size);
-
-	cout << "Enter your username: ";
-	fflush(stdin);
-	getline(cin, username);
-	cout << "Enter your password: ";
-	fflush(stdin);
-	pass = getpass();
-	//	fflush(stdin);
-	int verify = 2;
-	for (int i = 0; i < size; i++) {
-		if (username == arrayaccount[i].get_username()) {
-			if (pass == arrayaccount[i].get_password()) {
-				verify = 0; // Dang nhap thanh cong
-				id_signed_in = arrayaccount[i].get_id();
+	if (size == 0){ cout << "Error" << endl; system("pause"); menu m; m.mainmenu(); }
+	else {
+		cout << "Enter your username: ";
+		fflush(stdin);
+		getline(cin, username);
+		cout << "Enter your password: ";
+		fflush(stdin);
+		pass = getpass();
+		//	fflush(stdin);
+		int verify = 2;
+		for (int i = 0; i < size; i++) {
+			if (username == arrayaccount[i].get_username()) {
+				if (pass == arrayaccount[i].get_password()) {
+					verify = 0; // Dang nhap thanh cong
+					id_signed_in = arrayaccount[i].get_id();
+					break;
+				}
+				else {
+					verify = 1; // Sai mat khau
+					break;
+				}
+			}
+			else verify = 2; //Chua tim duoc username trong file
+		}
+		if (verify == 2) {
+			cout << "-----------------------------------------------------------------" << endl;
+			cout << "This user doesn't exist" << endl << "1. Try different account" << endl << "0. Back to main menu" << endl;
+			int choice = 0;
+			fflush(stdin);
+			choice = getchoice(0, 1);
+			switch (choice)
+			{
+			case 1: sign_in(); break;
+			case 0: m.mainmenu();
+			default:
 				break;
 			}
-			else {
-				verify = 1; // Sai mat khau
+		}
+		else if (verify == 1) {
+			cout << "-----------------------------------------------------------------" << endl;
+			cout << "Password is invalid" << endl;
+			cout << "1. Try to sign in again" << endl << "0. Back to main menu" << endl;
+			int choice = 0;
+			fflush(stdin);
+			choice = getchoice(0, 1);
+			switch (choice)
+			{
+			case 1: sign_in(); break;
+			case 0: m.mainmenu();
+			default:
 				break;
 			}
 		}
-		else verify = 2; //Chua tim duoc username trong file
-	}
-	if (verify == 2) {
-		cout << "-----------------------------------------------------------------" << endl;
-		cout << "This user doesn't exist" << endl << "1. Try different account" << endl << "0. Back to main menu" << endl;
-		int choice = 0;
-		fflush(stdin);
-		choice = getchoice(0, 1);
-		switch (choice)
-		{
-		case 1: sign_in(); break;
-		case 0: m.mainmenu();
-		default:
-			break;
+		else if (verify == 0) {
+			user_menu();
 		}
-	}
-	else if (verify == 1) {
-		cout << "-----------------------------------------------------------------" << endl;
-		cout << "Password is invalid" << endl;
-		cout << "1. Try to sign in again" << endl << "0. Back to main menu" << endl;
-		int choice = 0;
-		fflush(stdin);
-		choice = getchoice(0, 1);
-		switch (choice)
-		{
-		case 1: sign_in(); break;
-		case 0: m.mainmenu();
-		default:
-			break;
-		}
-	}
-	else if (verify == 0) {
-		user_menu();
 	}
 }
 void admin::user_menu() {

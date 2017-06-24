@@ -14,11 +14,11 @@
 using namespace std;
 void SetWindow(int Width, int Height)
 {
-	_COORD coord;
+	COORD coord;
 	coord.X = Width;
 	coord.Y = Height;
 
-	_SMALL_RECT Rect;
+	SMALL_RECT Rect;
 	Rect.Top = 0;
 	Rect.Left = 0;
 	Rect.Bottom = Height - 1;

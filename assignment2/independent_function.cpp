@@ -1,5 +1,5 @@
 #include "independent_function.h"
-
+#pragma warning(disable : 4996)
 
 std::string independent_function::getid_rdr(int size){
 	string ID, s = currentDateTime();
@@ -76,7 +76,7 @@ std::string independent_function::getpass()
 	string pass;
 	int count = 0;
 
-	while (((ch = _getch()) != 13) || pass.empty()){ // 13: phim Enter
+	while (((ch = getch()) != 13) || pass.empty()){ // 13: phim Enter
 		if (ch == 13 || ch == '\t'){
 			cout << endl << "Your password is empty.\nPlease Enter your password again: ";
 			continue;
@@ -95,7 +95,7 @@ std::string independent_function::getpass()
 		}
 		else{// bo qua phim mui ten len, xuong, qua, lai,...
 			cout << endl << "Mat khau khong gom ki tu la! " << endl;
-			_getch();//bo qua ki tu la
+			getch();//bo qua ki tu la
 			cout << "Enter your password: ";
 			pass = "";
 			continue;
@@ -119,7 +119,7 @@ int independent_function::getchoice(int begin, int end)
 	do{
 		cout << "Enter your choice: ";
 		fflush(stdin);
-	} while (((scanf_s("%d%c", &choice, &c) != 2 || c != '\n') && clean_stdin()) || choice < begin || choice > end);
+	} while (((scanf("%d%c", &choice, &c) != 2 || c != '\n') && clean_stdin()) || choice < begin || choice > end);
 	return choice;
 }
 
